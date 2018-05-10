@@ -61,6 +61,7 @@ public class ClientGUI extends javax.swing.JFrame {
         btnStart3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(java.awt.Color.white);
         setResizable(false);
 
         btnStart.setFont(new java.awt.Font("Ubuntu", 1, 20)); // NOI18N
@@ -75,25 +76,30 @@ public class ClientGUI extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel2.setForeground(java.awt.Color.darkGray);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/admin-icon-30x30.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/question-mark-icon-30x30.png"))); // NOI18N
         jLabel2.setText("User Type");
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel3.setForeground(java.awt.Color.green);
+        jLabel3.setForeground(new java.awt.Color(33, 207, 33));
         jLabel3.setText("STANDARD");
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel4.setForeground(java.awt.Color.darkGray);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/web-internet-world-icon-30x30.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/earth-icon-30x30.png"))); // NOI18N
         jLabel4.setText("Country");
 
         btnLogin.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/login-enter-icon-30x30.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/facebook-black-icon-30x30.png"))); // NOI18N
         btnLogin.setText("Login Page");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel5.setForeground(java.awt.Color.darkGray);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/hourglass-icon-30x30.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/hourglass-icon-black-30x30.png"))); // NOI18N
         jLabel5.setText("Limit");
 
         boxLimit.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
@@ -101,7 +107,7 @@ public class ClientGUI extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel6.setForeground(java.awt.Color.darkGray);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/expire-date-user-login-icon-30x30.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/user-icon-black-30x30.png"))); // NOI18N
         jLabel6.setText("User Login");
 
         boxCountry.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
@@ -110,8 +116,8 @@ public class ClientGUI extends javax.swing.JFrame {
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel7.setForeground(java.awt.Color.blue);
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/robot-hello-40x40.png"))); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 90, 78));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/aeratos-logo-transparent-40x40.png"))); // NOI18N
         jLabel7.setText("Hello ABDULO");
 
         btnLogin1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -119,58 +125,58 @@ public class ClientGUI extends javax.swing.JFrame {
         btnLogin1.setText("User Settings");
 
         jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel8.setForeground(java.awt.Color.blue);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/robot-hello-40x40.png"))); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(79, 79, 248));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/earthquake-icon-30x30.png"))); // NOI18N
         jLabel8.setText("Last Earthquake info");
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel9.setForeground(java.awt.Color.darkGray);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/admin-icon-30x30.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/earthquake-magnitude-30x30.png"))); // NOI18N
         jLabel9.setText("Magnitude");
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel1.setForeground(java.awt.Color.red);
+        jLabel1.setForeground(new java.awt.Color(104, 110, 222));
         jLabel1.setText("7.5");
 
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel10.setForeground(java.awt.Color.darkGray);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/admin-icon-30x30.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/location-icon-30x30.png"))); // NOI18N
         jLabel10.setText("Location");
 
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel11.setForeground(java.awt.Color.darkGray);
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/calendar-icon-30x30.png"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/calendar-icon-black-30x30.png"))); // NOI18N
         jLabel11.setText("Date");
 
         jLabel12.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel12.setForeground(java.awt.Color.red);
+        jLabel12.setForeground(new java.awt.Color(104, 110, 222));
         jLabel12.setText("Rome");
 
         jLabel13.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel13.setForeground(java.awt.Color.red);
+        jLabel13.setForeground(new java.awt.Color(104, 110, 222));
         jLabel13.setText("10-May-2018");
 
         jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel14.setForeground(java.awt.Color.darkGray);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/clock-icon-30x30.png"))); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/clock-icon-black-30x30.png"))); // NOI18N
         jLabel14.setText("Time");
 
         jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel15.setForeground(java.awt.Color.red);
+        jLabel15.setForeground(new java.awt.Color(104, 110, 222));
         jLabel15.setText("3:54 AM");
 
         jLabel16.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel16.setForeground(java.awt.Color.darkGray);
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/admin-icon-30x30.png"))); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/gps-location-icon-30x30.png"))); // NOI18N
         jLabel16.setText("Coordinates:");
 
         jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel17.setForeground(java.awt.Color.red);
+        jLabel17.setForeground(new java.awt.Color(104, 110, 222));
         jLabel17.setText("41.909507, 12.512788");
 
         jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel18.setForeground(java.awt.Color.darkGray);
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/web-internet-world-icon-30x30.png"))); // NOI18N
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/earth-icon-30x30.png"))); // NOI18N
         jLabel18.setText("Last Earthquakes Info");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -181,7 +187,7 @@ public class ClientGUI extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Date", "Time", "Location", "Magn"
+                "Date", "Time", "Location", "Magnitude"
             }
         ) {
             Class[] types = new Class [] {
@@ -263,9 +269,7 @@ public class ClientGUI extends javax.swing.JFrame {
                                     .addComponent(jLabel13))
                                 .addGap(38, 38, 38)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel14)
-                                        .addGap(103, 103, 103))
+                                    .addComponent(jLabel14)
                                     .addComponent(jLabel17)
                                     .addComponent(jLabel16))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -343,7 +347,6 @@ public class ClientGUI extends javax.swing.JFrame {
                                         .addComponent(jLabel15))
                                     .addGap(100, 100, 100))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(52, 52, 52)
                                     .addComponent(jLabel16)
                                     .addGap(43, 43, 43))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -372,6 +375,11 @@ public class ClientGUI extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        LoginPage lp= new LoginPage(this, true);
+        lp.setVisible(true);
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments

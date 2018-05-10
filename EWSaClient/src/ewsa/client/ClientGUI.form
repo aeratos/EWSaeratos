@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+    </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -78,10 +81,7 @@
                               </Group>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="103" pref="103" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -185,7 +185,6 @@
                                   <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="52" pref="52" max="-2" attributes="0"/>
                                   <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                               </Group>
@@ -265,7 +264,7 @@
           <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/admin-icon-30x30.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/question-mark-icon-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="User Type"/>
       </Properties>
@@ -276,7 +275,7 @@
           <Font name="Ubuntu" size="18" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="ff" id="green" palette="1" red="0" type="palette"/>
+          <Color blue="21" green="cf" red="21" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="STANDARD"/>
       </Properties>
@@ -290,7 +289,7 @@
           <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/web-internet-world-icon-30x30.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/earth-icon-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Country"/>
       </Properties>
@@ -301,10 +300,13 @@
           <Font name="Ubuntu" size="18" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/login-enter-icon-30x30.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/facebook-black-icon-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Login Page"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -315,7 +317,7 @@
           <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/hourglass-icon-30x30.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/hourglass-icon-black-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Limit"/>
       </Properties>
@@ -353,7 +355,7 @@
           <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/expire-date-user-login-icon-30x30.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/user-icon-black-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="User Login"/>
       </Properties>
@@ -386,10 +388,10 @@
           <Font name="Ubuntu" size="18" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="0" id="blue" palette="1" red="0" type="palette"/>
+          <Color blue="4e" green="5a" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/robot-hello-40x40.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/aeratos-logo-transparent-40x40.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Hello ABDULO"/>
       </Properties>
@@ -411,10 +413,10 @@
           <Font name="Ubuntu" size="18" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="0" id="blue" palette="1" red="0" type="palette"/>
+          <Color blue="f8" green="4f" red="4f" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/robot-hello-40x40.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/earthquake-icon-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Last Earthquake info"/>
       </Properties>
@@ -428,7 +430,7 @@
           <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/admin-icon-30x30.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/earthquake-magnitude-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Magnitude"/>
       </Properties>
@@ -439,7 +441,7 @@
           <Font name="Ubuntu" size="18" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
+          <Color blue="de" green="6e" red="68" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="7.5"/>
       </Properties>
@@ -453,7 +455,7 @@
           <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/admin-icon-30x30.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/location-icon-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Location"/>
       </Properties>
@@ -467,7 +469,7 @@
           <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/calendar-icon-30x30.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/calendar-icon-black-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Date"/>
       </Properties>
@@ -478,7 +480,7 @@
           <Font name="Ubuntu" size="18" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
+          <Color blue="de" green="6e" red="68" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Rome"/>
       </Properties>
@@ -489,7 +491,7 @@
           <Font name="Ubuntu" size="18" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
+          <Color blue="de" green="6e" red="68" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="10-May-2018"/>
       </Properties>
@@ -503,7 +505,7 @@
           <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/clock-icon-30x30.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/clock-icon-black-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Time"/>
       </Properties>
@@ -514,7 +516,7 @@
           <Font name="Ubuntu" size="18" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
+          <Color blue="de" green="6e" red="68" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="3:54 AM"/>
       </Properties>
@@ -528,7 +530,7 @@
           <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/admin-icon-30x30.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/gps-location-icon-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Coordinates:"/>
       </Properties>
@@ -539,7 +541,7 @@
           <Font name="Ubuntu" size="18" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
+          <Color blue="de" green="6e" red="68" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="41.909507, 12.512788"/>
       </Properties>
@@ -553,7 +555,7 @@
           <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/web-internet-world-icon-30x30.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/earth-icon-30x30.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Last Earthquakes Info"/>
       </Properties>
@@ -572,7 +574,7 @@
                 <Column editable="false" title="Date" type="java.lang.String"/>
                 <Column editable="false" title="Time" type="java.lang.String"/>
                 <Column editable="false" title="Location" type="java.lang.String"/>
-                <Column editable="false" title="Magn" type="java.lang.Float"/>
+                <Column editable="false" title="Magnitude" type="java.lang.Float"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
