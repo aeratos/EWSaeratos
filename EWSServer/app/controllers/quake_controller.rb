@@ -2,35 +2,47 @@ class QuakeController < ApplicationController
 
     require 'open-uri'
     require 'json'
+    require 'date'
 
     def get
 
         limitValue=params[:limit]
+        password = params[:passw]
 
-        url="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&limit=" + limitValue.to_s
-        prova= open(url, &:read)
+        if password == "ectrodattiliadisplasiaectodermicalabiopalatoschisi"
 
-        data = JSON.parse(prova)
-        features = data["features"]
+            url="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&limit=" + limitValue.to_s
+            prova= open(url, &:read)
 
-        retArr = Array.new(limitValue.to_i-1)
+            data = JSON.parse(prova)
+            features = data["features"]
 
-        for i in 1..limitValue.to_i
-          earthquake =features[i-1]
-          properties = earthquake["properties"]
-          geometry = earthquake["geometry"]
-          coordinates = geometry["coordinates"]
+            retArr = Array.new(limitValue.to_i-1)
 
-          id = earthquake["id"];
-          magnetude= properties["mag"]
-          place= properties["place"]
-          time=properties["time"]
+            for i in 1..limitValue.to_i
+                earthquake =features[i-1]
+                properties = earthquake["properties"]
+                geometry = earthquake["geometry"]
+                coordinates = geometry["coordinates"]
 
-          ret ={"id"=> id.to_s, "magn" => magnetude.to_s, "place" => place.to_s, "time" => time.to_s, "coord" => coordinates }
-          retArr[i-1]=ret
+                id = earthquake["id"];
+                magnetude= properties["mag"]
+                place= properties["place"]
+                time=properties["time"].to_i
+
+                timeEpo = Time.at(time /1000).to_s
+
+                formattedTime=timeEpo.split(" ")[0] +" "+ timeEpo.split(" ")[1] ;
+
+                ret ={"id"=> id.to_s, "magn" => magnetude.to_s, "place" => place.to_s, "time" => formattedTime.to_s, "coord" => coordinates }
+                retArr[i-1]=ret
+            end
+
+            render json: {"elem" => retArr}
+
+        else
+            render json: {"status" => "error"}
         end
-
-        render json: {"elem" => retArr}
     end
 
 end

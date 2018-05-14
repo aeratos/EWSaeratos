@@ -7,16 +7,28 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div>
-      <% if current_user %>
-        Signed in as <strong><%= current_user.name %></strong>!
-        <%= link_to "Sign out", signout_path, id: "sign_out" %>
-      <% else %>
-        <%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>
-      <% end %>
+
+
+    <div style="position:absolute; top: 25% ; left: 30%; right: 15%; width: 40%; height: 45%; background-color: rgb(160, 160, 160,0.4); border-radius:12px">
+        <div name="Logo" style="position:relative; top: 15% ; left: 30%; width: 40%;">
+                <img style="border-radius:18px" height="120" width="220" src="/assets/googleLogo.jpg" alt="Google logo">
+        </div>
+
+        <div  style="position:relative; top: 25% ; left: 35%;">
+            <% if current_user %>
+                Signed in as <strong><%= current_user.name %></strong>!
+                <%= link_to "Sign out", signout_path, id: "sign_out" %>
+            <% else %>
+                <%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>
+            <% end %>
+        </div>
     </div>
+
+
     <div>
     <%= yield %>
     </div>
+
+
   </body>
 </html>
