@@ -28,6 +28,7 @@ import javax.swing.JOptionPane;
 public class LoginWindow {
     
     private static String url= "http://localhost:3000/login";
+    private Settings settings= new Settings();
     
     public LoginWindow(){
     }
@@ -38,12 +39,11 @@ public class LoginWindow {
     
     public void windowClosing(WindowEvent e) {
             int confirm = JOptionPane.showOptionDialog(
-                 null, "Are You Sure to Close Application?", 
+                 null, "Do you want be a premium user?", 
                  "Premium Account", JOptionPane.YES_NO_OPTION, 
                  JOptionPane.QUESTION_MESSAGE, null, null, null);
-            if (confirm == 0) {
-               System.exit(0);
-            }
+            if (confirm == 0) settings.SaveSetting("boolean", "ewsapremium", "true");
+            else settings.SaveSetting("boolean", "ewsapremium", "false");
         }
     };
     

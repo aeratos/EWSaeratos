@@ -15,10 +15,14 @@ import javax.swing.JOptionPane;
  * @author nicholas
  */
 public class ClientGUI extends javax.swing.JFrame {
+    
+    private Settings settings= new Settings();
+    
     public ClientGUI() {
         initComponents();
         
         resetGUI();
+        refreshGUI();
     }
     
     
@@ -31,6 +35,14 @@ public class ClientGUI extends javax.swing.JFrame {
         labelCoo.setText("");
         labelDist.setText("");
         */
+    }
+    
+    private void refreshGUI(){
+        if(settings.getBoolValue("ewsapremium")){
+            btnGetInfo.setEnabled(true);
+        }
+        else btnGetInfo.setEnabled(false);
+        
     }
     
    
@@ -65,7 +77,7 @@ public class ClientGUI extends javax.swing.JFrame {
         tableInfo = new javax.swing.JTable();
         btnGetInfo = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
-        btnStart3 = new javax.swing.JButton();
+        btnSoundTest = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         labelDist = new javax.swing.JLabel();
         labelMaps = new javax.swing.JLabel();
@@ -225,10 +237,15 @@ public class ClientGUI extends javax.swing.JFrame {
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        btnStart3.setFont(new java.awt.Font("Ubuntu", 1, 20)); // NOI18N
-        btnStart3.setForeground(java.awt.Color.red);
-        btnStart3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/brake-light-red-50x35.png"))); // NOI18N
-        btnStart3.setText("Sound Test");
+        btnSoundTest.setFont(new java.awt.Font("Ubuntu", 1, 20)); // NOI18N
+        btnSoundTest.setForeground(java.awt.Color.red);
+        btnSoundTest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/brake-light-red-50x35.png"))); // NOI18N
+        btnSoundTest.setText("Sound Test");
+        btnSoundTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSoundTestActionPerformed(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel19.setForeground(java.awt.Color.darkGray);
@@ -316,12 +333,11 @@ public class ClientGUI extends javax.swing.JFrame {
                                                 .addComponent(jLabel14)
                                                 .addGap(71, 71, 71)
                                                 .addComponent(labelTime))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(jLabel9)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(labelMagn))
-                                                .addComponent(jLabel8)))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel9)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(labelMagn))
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addGap(57, 57, 57)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(labelCoo)
@@ -336,7 +352,7 @@ public class ClientGUI extends javax.swing.JFrame {
                                         .addComponent(labelLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(22, 22, 22))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnStart3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSoundTest, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnStart2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
@@ -412,7 +428,7 @@ public class ClientGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnStart)
                     .addComponent(btnStart2)
-                    .addComponent(btnStart3))
+                    .addComponent(btnSoundTest))
                 .addContainerGap())
         );
 
@@ -446,6 +462,11 @@ public class ClientGUI extends javax.swing.JFrame {
         Thread eqcThr= new Thread(eqc);
         eqcThr.start();
     }//GEN-LAST:event_btnGetInfoActionPerformed
+
+    private void btnSoundTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoundTestActionPerformed
+        Warning warn= new Warning();
+        warn.setVisible(true);
+    }//GEN-LAST:event_btnSoundTestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -486,9 +507,9 @@ public class ClientGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnGetInfo;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnLogin1;
+    private javax.swing.JButton btnSoundTest;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStart2;
-    private javax.swing.JButton btnStart3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
