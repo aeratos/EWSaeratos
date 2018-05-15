@@ -13,6 +13,7 @@ $ rake db:migrate
 $ rails start
 ```
 Open your browser and go to "http://localhost:3000/ and follow the instruction to download the Client
+
 ![GitHub Logo](homePage.png)
 
 
