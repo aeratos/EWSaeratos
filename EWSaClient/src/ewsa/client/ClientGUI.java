@@ -7,6 +7,7 @@ package ewsa.client;
 
 import java.awt.Font;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -21,28 +22,32 @@ public class ClientGUI extends javax.swing.JFrame {
     public ClientGUI() {
         initComponents();
         
-        resetGUI();
         refreshGUI();
     }
     
     
-    private void resetGUI(){
-        /*
-        labelMagn.setText("");
-        labelLoc.setText("");
-        labelDate.setText("");
-        labelTime.setText("");
-        labelCoo.setText("");
-        labelDist.setText("");
-        */
+    private boolean logged(){
+        if(settings.getStingValue("clientPass")==null || settings.getStingValue("clientPass").length()<2){
+            return false;
+        }
+        return true;
     }
     
     private void refreshGUI(){
-        if(settings.getBoolValue("ewsapremium")){
-            btnGetInfo.setEnabled(true);
+        if(!logged()){
+            btnLogin.setEnabled(true);
+            btnLogout.setEnabled(false);
+            btnSettings.setEnabled(false);
+            btnStart.setEnabled(false);
+            btnStop.setEnabled(false);
+            btnGetInfo.setEnabled(false);
         }
-        else btnGetInfo.setEnabled(false);
-        
+        else{
+            btnStop.setEnabled(false);
+            btnLogin.setEnabled(false);
+            if(settings.getBoolValue("ewsapremium")) btnGetInfo.setEnabled(true);
+            else btnGetInfo.setEnabled(false);
+        }
     }
     
    
@@ -53,7 +58,7 @@ public class ClientGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         btnStart = new javax.swing.JButton();
-        btnStart2 = new javax.swing.JButton();
+        btnStop = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
@@ -62,7 +67,7 @@ public class ClientGUI extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
-        btnLogin1 = new javax.swing.JButton();
+        btnSettings = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         labelMagn = new javax.swing.JLabel();
@@ -84,6 +89,7 @@ public class ClientGUI extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         labelLoc = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.white);
@@ -99,10 +105,15 @@ public class ClientGUI extends javax.swing.JFrame {
             }
         });
 
-        btnStart2.setFont(new java.awt.Font("Ubuntu", 1, 20)); // NOI18N
-        btnStart2.setForeground(java.awt.Color.red);
-        btnStart2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/off-btn-black-red-40x40.png"))); // NOI18N
-        btnStart2.setText("Stop");
+        btnStop.setFont(new java.awt.Font("Ubuntu", 1, 20)); // NOI18N
+        btnStop.setForeground(java.awt.Color.red);
+        btnStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/off-btn-black-red-40x40.png"))); // NOI18N
+        btnStop.setText("Stop");
+        btnStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStopActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel2.setForeground(java.awt.Color.darkGray);
@@ -134,12 +145,12 @@ public class ClientGUI extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/aeratos-logo-transparent-40x40.png"))); // NOI18N
         jLabel7.setText("Hello ABDULO");
 
-        btnLogin1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btnLogin1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/settings-blakc-icon-30x30.png"))); // NOI18N
-        btnLogin1.setText("Settings");
-        btnLogin1.addActionListener(new java.awt.event.ActionListener() {
+        btnSettings.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btnSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/settings-blakc-icon-30x30.png"))); // NOI18N
+        btnSettings.setText("Settings");
+        btnSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin1ActionPerformed(evt);
+                btnSettingsActionPerformed(evt);
             }
         });
 
@@ -164,7 +175,7 @@ public class ClientGUI extends javax.swing.JFrame {
 
         labelDate.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         labelDate.setForeground(new java.awt.Color(104, 110, 222));
-        labelDate.setText("10-May-2018");
+        labelDate.setText("10-04-2018");
 
         jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel14.setForeground(java.awt.Color.darkGray);
@@ -278,6 +289,15 @@ public class ClientGUI extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/location-icon-30x30.png"))); // NOI18N
         jLabel10.setText("Location");
 
+        btnLogout.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/logout-black-icon-30x30.png"))); // NOI18N
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -292,7 +312,7 @@ public class ClientGUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnGetInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnGetInfo))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,7 +328,7 @@ public class ClientGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel6)
@@ -318,7 +338,10 @@ public class ClientGUI extends javax.swing.JFrame {
                                             .addComponent(jLabel3)
                                             .addComponent(btnLogin)))
                                     .addComponent(jLabel7)
-                                    .addComponent(btnLogin1))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnSettings)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnLogout)))
                                 .addGap(18, 18, 18)
                                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -344,17 +367,17 @@ public class ClientGUI extends javax.swing.JFrame {
                                             .addComponent(jLabel16)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel19)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                                                .addGap(18, 18, 18)
                                                 .addComponent(labelDist))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(labelLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(22, 22, 22))
+                                .addGap(0, 52, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSoundTest, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnStart2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
                                 .addComponent(btnStart)))
                         .addContainerGap())))
@@ -377,7 +400,9 @@ public class ClientGUI extends javax.swing.JFrame {
                                     .addComponent(btnLogin)
                                     .addComponent(jLabel6))
                                 .addGap(18, 18, 18)
-                                .addComponent(btnLogin1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnSettings)
+                                    .addComponent(btnLogout))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
@@ -427,7 +452,7 @@ public class ClientGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnStart)
-                    .addComponent(btnStart2)
+                    .addComponent(btnStop)
                     .addComponent(btnSoundTest))
                 .addContainerGap())
         );
@@ -437,17 +462,17 @@ public class ClientGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        LoginWindow lw= new LoginWindow();
+        LoginWindow lw= new LoginWindow(btnLogout, btnSettings, btnStart);
         lw.initAndShowGUI();
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void btnLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin1ActionPerformed
+    private void btnSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingsActionPerformed
         SettingsGUI setGUI= new SettingsGUI(null, true);
         setGUI.setVisible(true);
-    }//GEN-LAST:event_btnLogin1ActionPerformed
+    }//GEN-LAST:event_btnSettingsActionPerformed
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
-        EarthQuakeCheck eqc= new EarthQuakeCheck(labelMagn, labelLoc, labelDate, labelTime, labelCoo, labelDist);  
+        EarthQuakeCheck eqc= new EarthQuakeCheck(labelMagn, labelLoc, labelDate, labelTime, labelCoo, labelDist, btnStart, btnStop);  
         Thread eqcThr= new Thread(eqc);
         eqcThr.start();
     }//GEN-LAST:event_btnStartActionPerformed
@@ -467,6 +492,16 @@ public class ClientGUI extends javax.swing.JFrame {
         Warning warn= new Warning();
         warn.setVisible(true);
     }//GEN-LAST:event_btnSoundTestActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        settings.SaveSetting("string", "clientPass", "");
+        refreshGUI();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
+        btnStart.setEnabled(true);
+        btnStop.setEnabled(false);
+    }//GEN-LAST:event_btnStopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -506,10 +541,11 @@ public class ClientGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGetInfo;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JButton btnLogin1;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnSettings;
     private javax.swing.JButton btnSoundTest;
     private javax.swing.JButton btnStart;
-    private javax.swing.JButton btnStart2;
+    private javax.swing.JButton btnStop;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;

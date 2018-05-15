@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.util.Locale;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import javax.swing.JButton;
 /**
  *
  * @author nicholas
@@ -43,9 +44,13 @@ public class EarthQuakeCheck implements Runnable{
     private JLabel labelDist;
     private JTable tableInfo;
     private LinkedList<String> getInfoList;
-    private String clientPass= "labiopalatoschisi";    //password to add
+    private String pass2= "labiopalatoschisi";    //password to add
+    private String clientPass= "";
+    private Settings settings;
+    private JButton btnStart;
+    private JButton btnStop;
     
-    public EarthQuakeCheck(JLabel labelMagn, JLabel labelLoc, JLabel labelDate, JLabel labelTime, JLabel labelCoo, JLabel labelDist){
+    public EarthQuakeCheck(JLabel labelMagn, JLabel labelLoc, JLabel labelDate, JLabel labelTime, JLabel labelCoo, JLabel labelDist, JButton btnStart, JButton btnStop){
         //polling
         this.limit="1";
         this.labelMagn= labelMagn;
@@ -54,18 +59,26 @@ public class EarthQuakeCheck implements Runnable{
         this.labelTime= labelTime;
         this.labelCoo= labelCoo;
         this.labelDist= labelDist;
+        this.settings= new Settings();
+        this.btnStart= btnStart;
+        this.btnStop= btnStop;
+        clientPass+=settings.getStingValue("clientPass")+pass2;   
     }
     
     public EarthQuakeCheck(String limit, JTable tableInfo){
         //getInfo
         this.limit=limit;
         this.tableInfo=tableInfo;
+        this.settings= new Settings();
+        clientPass+=settings.getStingValue("clientPass")+pass2;
     }
         
     @Override
     public void run() {
         int limitInt= Integer.parseInt(limit);
         if(limitInt==1){
+            btnStart.setEnabled(false);
+            btnStop.setEnabled(true);
             while(true){
                 try {
                     polling();
@@ -83,6 +96,10 @@ public class EarthQuakeCheck implements Runnable{
     
     
     private void refreshLastEq(String place, String time, String magn, String coord0, String coord1){
+        String tmpTime= time.split(" ")[1];
+        String tmpDate= time.split(" ")[0];
+        labelTime.setText(tmpTime);
+        labelDate.setText(tmpDate);
         labelLoc.setText(place);
         labelMagn.setText(magn);
         labelCoo.setText(coord0+", "+coord1);
@@ -102,19 +119,14 @@ public class EarthQuakeCheck implements Runnable{
         while(itList.hasNext()){
             System.out.println("RefreshTable check");
             String tmpArray[]= itList.next().split("~");
-            tableInfo.getModel().setValueAt(tmpArray[1], rowCounter, 0);
+            String tmpDate= tmpArray[1].split(" ")[0];
+            String tmpTime= tmpArray[1].split(" ")[1];
+            tableInfo.getModel().setValueAt(tmpDate, rowCounter, 0);
+            tableInfo.getModel().setValueAt(tmpTime, rowCounter, 1);
             tableInfo.getModel().setValueAt(tmpArray[0], rowCounter, 2);
             tableInfo.getModel().setValueAt(tmpArray[2], rowCounter, 3);
             rowCounter++;
         }
-    }
-    
-    private void convertDate(String time){
-        long timeInt= Long.parseLong(time);
-        Date date =new Date(time);
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM, dd, yyyy" , Locale.ITALIAN);
-        String ret=formatter.format(date);
-        System.out.println("Date: " + ret);
     }
     
     private boolean lastQuakeCheck(String id){
@@ -130,7 +142,7 @@ public class EarthQuakeCheck implements Runnable{
     private void polling(){
         BufferedReader br=null;
         try {
-            URL url=new URL(defaultURL+limit);
+            URL url=new URL(defaultURL+limit+"&passw="+clientPass);
             HttpURLConnection huc = (HttpURLConnection) url.openConnection();
             br = new BufferedReader(new InputStreamReader(huc.getInputStream()));
             String ret= br.readLine();
@@ -149,11 +161,12 @@ public class EarthQuakeCheck implements Runnable{
                 if(lastQuakeCheck(id)){
                     refreshLastEq(place, time, magn, coord0, coord1);
                 }
-                convertDate(time);
             }
             br.close();
         } catch (IOException ex) {
             Logger.getLogger(EarthQuakeCheck.class.getName()).log(Level.SEVERE, null, ex);
+            btnStart.setEnabled(true);
+            btnStop.setEnabled(false);
         } catch (JSONException ex) {
             Logger.getLogger(EarthQuakeCheck.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -163,7 +176,7 @@ public class EarthQuakeCheck implements Runnable{
     private void getInfo(){
         BufferedReader br=null;
         try {
-            URL url=new URL(defaultURL+limit);
+            URL url=new URL(defaultURL+limit+"&passw="+clientPass);
             HttpURLConnection huc = (HttpURLConnection) url.openConnection();
             br = new BufferedReader(new InputStreamReader(huc.getInputStream()));
             String ret= br.readLine();
