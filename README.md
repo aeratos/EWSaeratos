@@ -52,4 +52,6 @@ end
 ```
 
 ### Quake Fuctions ###
-The report of latest earthquake is showed 
+The report of latest earthquake is showed in this way:
+
+![GitHub Logo](quakeReport.jpg)
