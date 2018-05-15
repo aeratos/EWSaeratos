@@ -112,7 +112,7 @@ class QuakeController < ApplicationController
 
 end
 ```
-### Security###
+### Security ###
 The EWSaeratos securety is garanteed by the sum of two differents passwords: one insert by default in the client and the other passed by the Rails server when login is succesful.
 
 With this method we solve two problems: an User who want take informations without usig the client and an User who want using the application without logged in.
