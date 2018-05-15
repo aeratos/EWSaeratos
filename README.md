@@ -55,3 +55,7 @@ end
 The report of latest earthquake is showed in this way:
 
 ![GitHub Logo](quakeReport.jpg)
+
+And you can see the location in the pop-up map:
+
+![GitHub Logo](map.jpg)
