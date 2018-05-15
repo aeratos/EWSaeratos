@@ -5,7 +5,6 @@
  */
 package ewsa.client;
 
-import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -18,11 +17,12 @@ import javax.swing.JOptionPane;
 public class ClientGUI extends javax.swing.JFrame {
     
     private Settings settings= new Settings();
-    
     public ClientGUI() {
         initComponents();
         
         refreshGUI();
+        
+        CsvDbReader cdr= new CsvDbReader("italy");
     }
     
     
@@ -469,6 +469,7 @@ public class ClientGUI extends javax.swing.JFrame {
     private void btnSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingsActionPerformed
         SettingsGUI setGUI= new SettingsGUI(null, true);
         setGUI.setVisible(true);
+        refreshGUI();
     }//GEN-LAST:event_btnSettingsActionPerformed
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed

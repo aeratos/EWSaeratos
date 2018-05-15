@@ -7,11 +7,27 @@ package ewsa.client;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  *
@@ -22,16 +38,27 @@ public class Warning extends javax.swing.JFrame {
     /**
      * Creates new form Warning
      */
+    
+    private String soundPath= "/home/nicholas/OneDrive/University/Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/EASaeratosSound.wav";
+    File soundFile = new File(soundPath);
+    
     public Warning() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         startBlink();
+        warningSound();
     }
     
     private void startBlink(){
         WarningBlink wb= new WarningBlink(this, labelEarhquake);
         Thread wbThr= new Thread(wb);
         wbThr.start();
+    }
+    
+    private void warningSound(){
+        Media hit = new Media(new File(soundPath).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(hit);
+        mediaPlayer.play();
     }
 
     /**

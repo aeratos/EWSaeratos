@@ -5,6 +5,11 @@
  */
 package ewsa.client;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nicholas
@@ -14,9 +19,29 @@ public class SettingsGUI extends javax.swing.JDialog {
     /**
      * Creates new form SettingsGUI
      */
+    
+    private Settings settings= new Settings();
+    
     public SettingsGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        combosManager();
+    }
+    
+    
+    private void combosManager(){
+        String country= settings.getStingValue("usrCountry");
+        if(country==null || country.length()<2 || country.equals("worldwide")) boxCity.setEnabled(false);
+        else boxCity.setEnabled(true);
+        boolean premium= settings.getBoolValue("ewsapremium");
+        if(premium){
+            btnStandard.setSelected(false);
+            btnPremium.setSelected(true);
+        }
+        else{
+            btnStandard.setSelected(true);
+            btnPremium.setSelected(false);
+        }
     }
 
     /**
@@ -33,12 +58,16 @@ public class SettingsGUI extends javax.swing.JDialog {
         boxLimit = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jLabel6 = new javax.swing.JLabel();
-        boxLimit1 = new javax.swing.JComboBox<>();
+        btnStandard = new javax.swing.JRadioButton();
+        btnPremium = new javax.swing.JRadioButton();
+        cityLabel = new javax.swing.JLabel();
+        boxCity = new javax.swing.JComboBox<>();
+        cityLabel1 = new javax.swing.JLabel();
+        boxMagnitude = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel4.setForeground(java.awt.Color.darkGray);
@@ -46,7 +75,20 @@ public class SettingsGUI extends javax.swing.JDialog {
         jLabel4.setText("Country");
 
         boxCountry.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
-        boxCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Italy", "USA", " " }));
+        boxCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Worldwide", "Italy", "United States of America", "Austria", "France", "Germany", "Japan", "South Corea", "Switzerland", "United Kingdom" }));
+        boxCountry.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                boxCountryMouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boxCountryMouseClicked(evt);
+            }
+        });
+        boxCountry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxCountryActionPerformed(evt);
+            }
+        });
 
         boxLimit.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         boxLimit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
@@ -54,26 +96,64 @@ public class SettingsGUI extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel5.setForeground(java.awt.Color.darkGray);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/hourglass-icon-black-30x30.png"))); // NOI18N
-        jLabel5.setText("Limit");
+        jLabel5.setText("List Limit");
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel2.setForeground(java.awt.Color.darkGray);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/question-mark-icon-30x30.png"))); // NOI18N
         jLabel2.setText("User Type");
 
-        jRadioButton1.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
-        jRadioButton1.setText("Standard");
+        btnStandard.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btnStandard.setText("Standard");
+        btnStandard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnStandardMouseClicked(evt);
+            }
+        });
+        btnStandard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStandardActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
-        jRadioButton2.setText("Premium");
+        btnPremium.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btnPremium.setText("Premium");
+        btnPremium.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPremiumMouseClicked(evt);
+            }
+        });
+        btnPremium.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPremiumActionPerformed(evt);
+            }
+        });
 
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel6.setForeground(java.awt.Color.darkGray);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/hourglass-icon-black-30x30.png"))); // NOI18N
-        jLabel6.setText("City");
+        cityLabel.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        cityLabel.setForeground(java.awt.Color.darkGray);
+        cityLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/city-black-icon-30x30.png"))); // NOI18N
+        cityLabel.setText("City");
 
-        boxLimit1.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
-        boxLimit1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        boxCity.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
+        boxCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Nation" }));
+
+        cityLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        cityLabel1.setForeground(java.awt.Color.darkGray);
+        cityLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/earthquake-magnitude-30x30.png"))); // NOI18N
+        cityLabel1.setText("Min Magnitude");
+
+        boxMagnitude.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
+        boxMagnitude.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        boxMagnitude.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxMagnitudeActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel7.setForeground(java.awt.Color.darkGray);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/settings-blakc-icon-40x40.png"))); // NOI18N
+        jLabel7.setText("Settings");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,38 +163,55 @@ public class SettingsGUI extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(27, 27, 27)
-                        .addComponent(boxCountry, 0, 246, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addGap(28, 28, 28)
-                                .addComponent(jRadioButton2))
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addComponent(boxCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(130, 130, 130)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(boxLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(boxLimit1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnStandard)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(btnPremium))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(boxLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(cityLabel1)
+                                            .addGap(37, 37, 37)
+                                            .addComponent(boxMagnitude, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cityLabel)
+                                .addGap(135, 135, 135)
+                                .addComponent(boxCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(37, 37, 37))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(boxCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(boxLimit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                    .addComponent(cityLabel)
+                    .addComponent(boxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cityLabel1)
+                    .addComponent(boxMagnitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(boxLimit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -122,13 +219,52 @@ public class SettingsGUI extends javax.swing.JDialog {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(btnStandard)
+                    .addComponent(btnPremium))
                 .addGap(27, 27, 27))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void boxCountryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boxCountryMouseClicked
+        //boxCity.setEnabled(true);
+        //boxLimit.setEnabled(true);
+    }//GEN-LAST:event_boxCountryMouseClicked
+
+    private void boxCountryMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boxCountryMouseReleased
+        
+    }//GEN-LAST:event_boxCountryMouseReleased
+
+    private void boxMagnitudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxMagnitudeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxMagnitudeActionPerformed
+
+    private void boxCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxCountryActionPerformed
+        String newCountry= String.valueOf(boxCountry.getSelectedItem());
+        newCountry= newCountry.toLowerCase();
+        settings.SaveSetting("string", "usrCountry", newCountry);
+        combosManager();
+    }//GEN-LAST:event_boxCountryActionPerformed
+
+    private void btnStandardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStandardActionPerformed
+        settings.SaveSetting("boolean", "ewsapremium", "false");
+        combosManager();
+    }//GEN-LAST:event_btnStandardActionPerformed
+
+    private void btnPremiumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPremiumActionPerformed
+        settings.SaveSetting("boolean", "ewsapremium", "true");
+        combosManager();
+    }//GEN-LAST:event_btnPremiumActionPerformed
+
+    private void btnPremiumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPremiumMouseClicked
+        
+    }//GEN-LAST:event_btnPremiumMouseClicked
+
+    private void btnStandardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStandardMouseClicked
+        
+    }//GEN-LAST:event_btnStandardMouseClicked
 
     /**
      * @param args the command line arguments
@@ -173,14 +309,17 @@ public class SettingsGUI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> boxCity;
     private javax.swing.JComboBox<String> boxCountry;
     private javax.swing.JComboBox<String> boxLimit;
-    private javax.swing.JComboBox<String> boxLimit1;
+    private javax.swing.JComboBox<String> boxMagnitude;
+    private javax.swing.JRadioButton btnPremium;
+    private javax.swing.JRadioButton btnStandard;
+    private javax.swing.JLabel cityLabel;
+    private javax.swing.JLabel cityLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }
