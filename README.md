@@ -1,6 +1,15 @@
 # EWSaeratos
 
-SERVER
-$ bundle install    #install the gems in Gemfile
-$ rake db:migrate   #set the DataBase
-$ rails start       #start server
+**EWSaeratos** is an application aimed at guaranteeing the safety of people in the event of an earthquake.
+It also provides useful informations about the latest records of global and local earthquakes
+
+## SERVER
+
+To open the server, type: 
+
+'''
+$ bundle install  
+$ rake db:migrate  
+$ rails start
+'''
+
