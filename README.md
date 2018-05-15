@@ -18,7 +18,7 @@ Open your browser and go to "http://localhost:3000/ and follow the instruction t
 
 
 
-### Privacy ###
+### Privacy 
 Your Privacy is garanteed by the integration of *Google Oauth* protocol.
 On startup of Rails server is created a logger with this function:
 
