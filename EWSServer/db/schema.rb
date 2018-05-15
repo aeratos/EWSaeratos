@@ -10,6 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
+
+#This is the DataBase schema of Users
 ActiveRecord::Schema.define(version: 20180512150718) do
 
   create_table "users", force: :cascade do |t|

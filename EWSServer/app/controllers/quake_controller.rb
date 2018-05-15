@@ -2,16 +2,15 @@ class QuakeController < ApplicationController
 
     require 'open-uri'
     require 'json'
-    require 'date'
 
     def get
 
         limitValue=params[:limit]
         password = params[:passw]
 
-        if password == "ectrodattiliadisplasiaectodermicalabiopalatoschisi"
+        if password == "ectrodattiliadisplasiaectodermicalabiopalatoschisi"     #complete password
 
-            url="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&limit=" + limitValue.to_s
+            url="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&limit=" + limitValue.to_s    #USGS api
             prova= open(url, &:read)
 
             data = JSON.parse(prova)
