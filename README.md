@@ -12,6 +12,11 @@ $ bundle install
 $ rake db:migrate  
 $ rails start
 ```
+Open your browser and go to "http://localhost:3000/ and follow the instruction to download the Client
+![GitHub Logo](homePage.png)
+
+
+
 ### Privacy ###
 Your Privacy is garanteed by the integration of *Google Oauth* protocol.
 On startup of Rails server is created a logger with this function:
@@ -44,3 +49,6 @@ class User < ActiveRecord::Base
   end
 end
 ```
+
+### Quake Fuctions ###
+The report of latest earthquake is showed 
