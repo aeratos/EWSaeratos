@@ -7,9 +7,9 @@ It also provides useful informations about the latest records of global and loca
 
 To open the server, type: 
 
-'''
+```
 $ bundle install  
 $ rake db:migrate  
 $ rails start
-'''
+```
 
