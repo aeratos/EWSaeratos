@@ -49,6 +49,9 @@ public class EarthQuakeCheck implements Runnable{
     private Settings settings;
     private JButton btnStart;
     private JButton btnStop;
+    private LocationFinder locFind;
+    private DistCoord distCoo;
+    private Warning warning;
     
     public EarthQuakeCheck(JLabel labelMagn, JLabel labelLoc, JLabel labelDate, JLabel labelTime, JLabel labelCoo, JLabel labelDist, JButton btnStart, JButton btnStop){
         //polling
@@ -62,7 +65,10 @@ public class EarthQuakeCheck implements Runnable{
         this.settings= new Settings();
         this.btnStart= btnStart;
         this.btnStop= btnStop;
-        clientPass+=settings.getStingValue("clientPass")+pass2;   
+        clientPass+=settings.getStingValue("clientPass")+pass2;
+        locFind= new LocationFinder();
+        this.distCoo= new DistCoord();
+        this.warning= new Warning();
     }
     
     public EarthQuakeCheck(String limit, JTable tableInfo){
@@ -71,6 +77,9 @@ public class EarthQuakeCheck implements Runnable{
         this.tableInfo=tableInfo;
         this.settings= new Settings();
         clientPass+=settings.getStingValue("clientPass")+pass2;
+        locFind= new LocationFinder();
+        this.distCoo= new DistCoord();
+        this.warning= new Warning();
     }
         
     @Override
@@ -139,6 +148,23 @@ public class EarthQuakeCheck implements Runnable{
         return false;
     }
     
+    private boolean locationFilter(String coord0, String coord1){
+        //TRUE if location is within user-set limit.
+        String myLocStr= settings.getStingValue("usrLocation");
+        String myCoords= locFind.getCoord(myLocStr);
+        double myCoo1= Double.parseDouble(myCoords.split(", ")[0]);
+        double myCoo2= Double.parseDouble(myCoords.split(", ")[1]);
+        double incomeLoc1= Double.parseDouble(coord0);
+        double incomeLoc2= Double.parseDouble(coord1);
+        double dist= distCoo.getDist(myCoo1, myCoo2, incomeLoc2, incomeLoc1);
+        double usrDistance= settings.getIntValue("usrDist");
+        System.out.println("usrDistance: " + usrDistance + "\t Dist: " + dist);   //debug
+        if(usrDistance>=dist){
+            return true;
+        }
+        return false;
+    }
+    
     private void polling(){
         BufferedReader br=null;
         try {
@@ -157,9 +183,12 @@ public class EarthQuakeCheck implements Runnable{
                 String coord0=dataElem.getString("coord").split(",")[0].substring(1);
                 String coord1=dataElem.getString("coord").split(",")[1];
 
-                //System.out.println("id: "+id+" Place: "+place+" time: "+time+" Magn: "+magn +" coord0: "+coord0 +" coord1: "+coord1);                
-                if(lastQuakeCheck(id)){
-                    refreshLastEq(place, time, magn, coord0, coord1);
+                System.out.println("id: "+id+" Place: "+place+" time: "+time+" Magn: "+magn +" coord0: "+coord0 +" coord1: "+coord1);                
+                if(locationFilter(coord0, coord1)){
+                    if(lastQuakeCheck(id)){
+                        refreshLastEq(place, time, magn, coord0, coord1);
+                        warning.setVisible(true);
+                    }
                 }
             }
             br.close();
