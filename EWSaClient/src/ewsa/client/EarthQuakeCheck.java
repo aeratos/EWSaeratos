@@ -52,6 +52,7 @@ public class EarthQuakeCheck implements Runnable{
     private LocationFinder locFind;
     private DistCoord distCoo;
     private Warning warning;
+    private String distance;
     
     public EarthQuakeCheck(JLabel labelMagn, JLabel labelLoc, JLabel labelDate, JLabel labelTime, JLabel labelCoo, JLabel labelDist, JButton btnStart, JButton btnStop){
         //polling
@@ -112,6 +113,7 @@ public class EarthQuakeCheck implements Runnable{
         labelLoc.setText(place);
         labelMagn.setText(magn);
         labelCoo.setText(coord0+", "+coord1);
+        labelDist.setText(this.distance+" Km");
     }
     
     private void refreshTable(){
@@ -160,6 +162,7 @@ public class EarthQuakeCheck implements Runnable{
         double usrDistance= settings.getIntValue("usrDist");
         System.out.println("usrDistance: " + usrDistance + "\t Dist: " + dist);   //debug
         if(usrDistance>=dist){
+            this.distance=Integer.toString((int) dist);
             return true;
         }
         return false;

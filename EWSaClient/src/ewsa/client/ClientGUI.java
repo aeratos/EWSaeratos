@@ -5,6 +5,7 @@
  */
 package ewsa.client;
 
+import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,6 +21,7 @@ public class ClientGUI extends javax.swing.JFrame {
     public ClientGUI() {
         initComponents();
         
+        startGUI();
         refreshGUI();
     }
     
@@ -31,6 +33,16 @@ public class ClientGUI extends javax.swing.JFrame {
         return true;
     }
     
+    private void startGUI(){
+        labelMagn.setText("   ");
+        labelTime.setText("       ");
+        labelDate.setText("          ");
+        labelCoo.setText("                    ");
+        labelDist.setText("     ");
+        labelLoc.setText("                                   ");
+        
+    }
+    
     private void refreshGUI(){
         if(!logged()){
             btnLogin.setEnabled(true);
@@ -39,12 +51,21 @@ public class ClientGUI extends javax.swing.JFrame {
             btnStart.setEnabled(false);
             btnStop.setEnabled(false);
             btnGetInfo.setEnabled(false);
+            labelUsrType.setText("        ");
         }
         else{
             btnStop.setEnabled(false);
             btnLogin.setEnabled(false);
-            if(settings.getBoolValue("ewsapremium")) btnGetInfo.setEnabled(true);
-            else btnGetInfo.setEnabled(false);
+            if(settings.getBoolValue("ewsapremium")){
+                btnGetInfo.setEnabled(true);
+                labelUsrType.setForeground(Color.BLUE);
+                labelUsrType.setText("PREMIUM ");
+            }
+            else{
+                btnGetInfo.setEnabled(false);
+                labelUsrType.setForeground(Color.GREEN);
+                labelUsrType.setText("STANDARD");
+            }
         }
     }
     
@@ -60,7 +81,7 @@ public class ClientGUI extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelUsrType = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
@@ -118,9 +139,9 @@ public class ClientGUI extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/question-mark-icon-30x30.png"))); // NOI18N
         jLabel2.setText("User Type");
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(33, 207, 33));
-        jLabel3.setText("STANDARD");
+        labelUsrType.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        labelUsrType.setForeground(new java.awt.Color(33, 207, 33));
+        labelUsrType.setText("STANDARD");
 
         btnLogin.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/google-black-icon-30x30.png"))); // NOI18N
@@ -263,7 +284,7 @@ public class ClientGUI extends javax.swing.JFrame {
 
         labelDist.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         labelDist.setForeground(new java.awt.Color(104, 110, 222));
-        labelDist.setText("10 Km");
+        labelDist.setText("100 Km");
 
         labelMaps.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/googlemaps-black-icon-200x200.png"))); // NOI18N
         labelMaps.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -333,7 +354,7 @@ public class ClientGUI extends javax.swing.JFrame {
                                             .addComponent(jLabel2))
                                         .addGap(27, 27, 27)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
+                                            .addComponent(labelUsrType)
                                             .addComponent(btnLogin)))
                                     .addComponent(jLabel7)
                                     .addGroup(layout.createSequentialGroup()
@@ -371,7 +392,7 @@ public class ClientGUI extends javax.swing.JFrame {
                                         .addComponent(jLabel10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(labelLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 52, Short.MAX_VALUE))
+                                .addGap(0, 42, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSoundTest, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -392,7 +413,7 @@ public class ClientGUI extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
+                                    .addComponent(labelUsrType))
                                 .addGap(21, 21, 21)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnLogin)
@@ -553,7 +574,6 @@ public class ClientGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -570,6 +590,7 @@ public class ClientGUI extends javax.swing.JFrame {
     private javax.swing.JLabel labelMagn;
     private javax.swing.JLabel labelMaps;
     private javax.swing.JLabel labelTime;
+    private javax.swing.JLabel labelUsrType;
     private javax.swing.JTable tableInfo;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/media/sf_Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/ClientGUI.java</file>
-            <file>file:/media/sf_Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/Settings.java</file>
-            <file>file:/media/sf_Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/LoginWindow.java</file>
-            <file>file:/media/sf_Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/MapWindow.java</file>
-            <file>file:/media/sf_Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/SettingsGUI.java</file>
-            <file>file:/media/sf_Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/EarthQuakeCheck.java</file>
+            <file>file:/home/nicholas/OneDrive/University/Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/Warning.java</file>
+            <file>file:/home/nicholas/OneDrive/University/Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/ClientGUI.java</file>
+            <file>file:/home/nicholas/OneDrive/University/Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/EarthQuakeCheck.java</file>
+            <file>file:/home/nicholas/OneDrive/University/Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/LocationFinder.java</file>
+            <file>file:/home/nicholas/OneDrive/University/Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/SettingsGUI.java</file>
+            <file>file:/home/nicholas/OneDrive/University/Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/DistCoord.java</file>
+            <file>file:/home/nicholas/OneDrive/University/Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/Settings.java</file>
         </group>
     </open-files>
 </project-private>

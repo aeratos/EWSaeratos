@@ -35,11 +35,18 @@ public class SettingsGUI extends javax.swing.JDialog {
             btnStandard.setSelected(false);
             btnPremium.setSelected(true);
             boxLimit.setEnabled(true);
+            int usrLimit= settings.getIntValue("usrLimit");
+            if(usrLimit<=0){
+                usrLimit= 1;
+                settings.SaveSetting("int", "usrLimit", Integer.toString(usrLimit));
+            }
+            labelListSet.setText("Set " + Integer.toString(usrLimit));
         }
         else{
             btnStandard.setSelected(true);
             btnPremium.setSelected(false);
             boxLimit.setEnabled(false);
+            labelListSet.setText("");
         }
         int usrDist= settings.getIntValue("usrDist");
         if(usrDist<=0){
@@ -47,6 +54,15 @@ public class SettingsGUI extends javax.swing.JDialog {
             settings.SaveSetting("int", "usrDist", Integer.toString(usrDist));
         }
         labelDistSet.setText("Set " + Integer.toString(usrDist));
+        int usrMagn= settings.getIntValue("usrMagn");
+        if(usrMagn<=0){
+            usrMagn= 1;
+            settings.SaveSetting("int", "usrMagn", Integer.toString(usrMagn));
+        }
+        labelMagnSet.setText("Set " + Integer.toString(usrMagn));
+        String location= settings.getStingValue("usrLocation");
+        if(location.length()>2) labelLocationSet.setText("Location Set: " + location);
+        
     }
 
     /**
@@ -72,6 +88,9 @@ public class SettingsGUI extends javax.swing.JDialog {
         cityLabel2 = new javax.swing.JLabel();
         boxDistance = new javax.swing.JComboBox<>();
         labelDistSet = new javax.swing.JLabel();
+        labelLocationSet = new javax.swing.JLabel();
+        labelMagnSet = new javax.swing.JLabel();
+        labelListSet = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -83,6 +102,11 @@ public class SettingsGUI extends javax.swing.JDialog {
 
         boxLimit.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         boxLimit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        boxLimit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxLimitActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel5.setForeground(java.awt.Color.darkGray);
@@ -170,6 +194,18 @@ public class SettingsGUI extends javax.swing.JDialog {
         labelDistSet.setForeground(java.awt.Color.darkGray);
         labelDistSet.setText("Set");
 
+        labelLocationSet.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        labelLocationSet.setForeground(java.awt.Color.darkGray);
+        labelLocationSet.setText("Set");
+
+        labelMagnSet.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        labelMagnSet.setForeground(java.awt.Color.darkGray);
+        labelMagnSet.setText("Set");
+
+        labelListSet.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        labelListSet.setForeground(java.awt.Color.darkGray);
+        labelListSet.setText("Set");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,11 +218,6 @@ public class SettingsGUI extends javax.swing.JDialog {
                         .addComponent(btnStandard)
                         .addGap(28, 28, 28)
                         .addComponent(btnPremium))
-                    .addComponent(jLabel7)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(94, 94, 94)
-                        .addComponent(fieldLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -203,7 +234,18 @@ public class SettingsGUI extends javax.swing.JDialog {
                                     .addGap(37, 37, 37)
                                     .addComponent(boxMagnitude, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(50, 50, 50)
-                        .addComponent(labelDistSet)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDistSet)
+                            .addComponent(labelMagnSet)
+                            .addComponent(labelListSet)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel7))
+                        .addGap(86, 86, 86)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelLocationSet)
+                            .addComponent(fieldLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(btnSetLoc)
                 .addContainerGap())
@@ -212,7 +254,9 @@ public class SettingsGUI extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(labelLocationSet))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -226,11 +270,13 @@ public class SettingsGUI extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cityLabel1)
-                    .addComponent(boxMagnitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(boxMagnitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMagnSet))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(boxLimit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(boxLimit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelListSet))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -245,7 +291,9 @@ public class SettingsGUI extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void boxMagnitudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxMagnitudeActionPerformed
-        // TODO add your handling code here:
+        String magn= String.valueOf(boxMagnitude.getSelectedItem());
+        settings.SaveSetting("int", "usrMagn", magn);
+        combosManager();
     }//GEN-LAST:event_boxMagnitudeActionPerformed
 
     private void btnStandardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStandardActionPerformed
@@ -282,6 +330,12 @@ public class SettingsGUI extends javax.swing.JDialog {
         settings.SaveSetting("int", "usrDist", dist);
         combosManager();
     }//GEN-LAST:event_boxDistanceActionPerformed
+
+    private void boxLimitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxLimitActionPerformed
+        String limit= String.valueOf(boxLimit.getSelectedItem());
+        settings.SaveSetting("int", "usrLimit", limit);
+        combosManager();
+    }//GEN-LAST:event_boxLimitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -340,5 +394,8 @@ public class SettingsGUI extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel labelDistSet;
+    private javax.swing.JLabel labelListSet;
+    private javax.swing.JLabel labelLocationSet;
+    private javax.swing.JLabel labelMagnSet;
     // End of variables declaration//GEN-END:variables
 }
