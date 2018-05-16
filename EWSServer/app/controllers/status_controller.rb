@@ -5,7 +5,8 @@ class StatusController < ApplicationController
             userType=params[:type]
             current_user.typeU = userType
             current_user.save!
-            ret ={"status" => "logged", "type" => userType.to_s, "pass" => passw.to_s}
+            name=current_user.name
+            ret ={"status" => "logged", "type" => userType.to_s, "name" => name.to_s, "pass" => passw.to_s}
             render json: ret
         else
             ret ={"status" => "unlogged"}
