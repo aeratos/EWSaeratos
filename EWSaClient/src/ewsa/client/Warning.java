@@ -46,7 +46,7 @@ public class Warning extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         startBlink();
-        warningSound();
+        //warningSound();
     }
     
     private void startBlink(){

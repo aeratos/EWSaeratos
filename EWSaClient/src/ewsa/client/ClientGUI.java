@@ -21,8 +21,6 @@ public class ClientGUI extends javax.swing.JFrame {
         initComponents();
         
         refreshGUI();
-        
-        CsvDbReader cdr= new CsvDbReader("italy");
     }
     
     
