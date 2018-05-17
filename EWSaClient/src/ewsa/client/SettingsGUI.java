@@ -21,11 +21,13 @@ public class SettingsGUI extends javax.swing.JDialog {
      */
     
     private Settings settings= new Settings();
+    private LocationFinder locFind;
     
     public SettingsGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         combosManager();
+        locFind= new LocationFinder();
     }
     
     
@@ -49,20 +51,24 @@ public class SettingsGUI extends javax.swing.JDialog {
             labelListSet.setText("");
         }
         int usrDist= settings.getIntValue("usrDist");
-        if(usrDist<=0){
+        if(usrDist<0){
             usrDist= 10;
             settings.SaveSetting("int", "usrDist", Integer.toString(usrDist));
         }
         labelDistSet.setText("Set " + Integer.toString(usrDist));
         int usrMagn= settings.getIntValue("usrMagn");
-        if(usrMagn<=0){
+        if(usrMagn<0){
             usrMagn= 1;
             settings.SaveSetting("int", "usrMagn", Integer.toString(usrMagn));
         }
         labelMagnSet.setText("Set " + Integer.toString(usrMagn));
-        String location= settings.getStingValue("usrLocation");
-        if(location.length()>2) labelLocationSet.setText("Location Set: " + location);
-        
+        String location= settings.getStingValue("usrLocName");
+        if(location==null || location.length()<2){
+            location= "worldwide";
+            settings.SaveSetting("string", "usrLocation", location);
+            settings.SaveSetting("string", "usrLocName", location);
+        }
+        labelLocationSet.setText("Location Set: " + location);
     }
 
     /**
@@ -150,7 +156,7 @@ public class SettingsGUI extends javax.swing.JDialog {
         cityLabel1.setText("Min Magnitude");
 
         boxMagnitude.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
-        boxMagnitude.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        boxMagnitude.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         boxMagnitude.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxMagnitudeActionPerformed(evt);
@@ -319,10 +325,21 @@ public class SettingsGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_fieldLocationActionPerformed
 
     private void btnSetLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetLocActionPerformed
-        String city= fieldLocation.getText().toLowerCase();
-        settings.SaveSetting("string", "usrLocation", city);
+        String location= fieldLocation.getText().toLowerCase();
+        settings.SaveSetting("string", "usrLocName", location);
+        if(!location.equals("worldwide")) location= locFind.getCoord(location);
+        if(location.equals("error")){
+            JOptionPane.showMessageDialog(this, "Cannot set location, try again", "Error", JOptionPane.ERROR_MESSAGE);
+            location="worldwide";
+            settings.SaveSetting("string", "usrLocation", location);
+            settings.SaveSetting("string", "usrLocName", location);
+        }
+        else{
+            settings.SaveSetting("string", "usrLocation", location);
+            JOptionPane.showMessageDialog(null, "Location Set");
+        }
+        fieldLocation.setText("");
         combosManager();
-        JOptionPane.showMessageDialog(null, "Location Set");
     }//GEN-LAST:event_btnSetLocActionPerformed
 
     private void boxDistanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxDistanceActionPerformed

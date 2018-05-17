@@ -90,6 +90,8 @@ public class LoginWindow {
             if(data.getString("status").equals("logged")){
                 String pass= data.getString("pass");
                 settings.SaveSetting("string", "clientPass", pass);
+                String name= data.getString("name");
+                System.out.println("NAME: " + name);  //debug
                 updateGUI();
             }
             else{
