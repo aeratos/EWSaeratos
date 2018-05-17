@@ -671,7 +671,7 @@
           <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ewsa/client/Icons/warning-icon-40x35.png"/>
+          <Image iconType="3" name="/ewsa/client/Icons/warning-icon-30x27.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="WARNING"/>
       </Properties>

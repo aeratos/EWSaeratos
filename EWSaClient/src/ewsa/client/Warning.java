@@ -52,6 +52,9 @@ public class Warning extends javax.swing.JFrame {
         this.labelWarning= labelWarning;
         this.labelMagn= labelMagn;
         this.labelLoc= labelLoc;
+    }
+    
+    public void start(){
         startBlink();
         //warningSound();
     }
@@ -60,6 +63,9 @@ public class Warning extends javax.swing.JFrame {
         WarningBlink wb= new WarningBlink(this, labelEarhquake);
         Thread wbThr= new Thread(wb);
         wbThr.start();
+        LabelBlink lb= new LabelBlink(labelWarning, labelMagn, labelLoc);
+        Thread lbThr= new Thread(lb);
+        lbThr.start();
     }
     
     private void warningSound(){

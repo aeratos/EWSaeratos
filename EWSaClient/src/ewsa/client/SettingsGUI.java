@@ -58,7 +58,7 @@ public class SettingsGUI extends javax.swing.JDialog {
         labelDistSet.setText("Set " + Integer.toString(usrDist));
         int usrMagn= settings.getIntValue("usrMagn");
         if(usrMagn<0){
-            usrMagn= 1;
+            usrMagn= 0;
             settings.SaveSetting("int", "usrMagn", Integer.toString(usrMagn));
         }
         labelMagnSet.setText("Set " + Integer.toString(usrMagn));
