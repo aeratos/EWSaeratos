@@ -85,7 +85,6 @@ public class EarthQuakeCheck implements Runnable{
         this.settings= new Settings();
         clientPass+=settings.getStingValue("clientPass")+pass2;
         this.distCoo= new DistCoord();
-        this.warning= new Warning(labelWarning, labelMagn, labelLoc);
     }
         
     @Override
@@ -190,7 +189,7 @@ public class EarthQuakeCheck implements Runnable{
         double incomeLoc2= Double.parseDouble(coord1);
         double dist= distCoo.getDist(myCoo1, myCoo2, incomeLoc2, incomeLoc1);
         double usrDistance= settings.getIntValue("usrDist");
-        System.out.println("usrDistance: " + usrDistance + "\t Dist: " + dist);   //debug
+        //System.out.println("usrDistance: " + usrDistance + "\t Dist: " + dist);   //debug
         if(usrDistance>=dist){
             this.distance=Integer.toString((int) dist);
             return true;
@@ -226,7 +225,9 @@ public class EarthQuakeCheck implements Runnable{
                 System.out.println("id: "+id+" Place: "+place+" time: "+time+" Magn: "+magn +" coord0: "+coord0 +" coord1: "+coord1);                
                 if(locationFilter(coord0, coord1) && magnitudeFilter(magn) && lastQuakeCheck(id)){
                     refreshLastEq(place, time, magn, coord0, coord1);
-                    warning.setVisible(true);
+                    warning.start();
+                    settings.SaveSetting("string", "lastEqCoo0", coord0);
+                    settings.SaveSetting("string", "lastEqCoo1", coord1);
                 }
             }
             br.close();

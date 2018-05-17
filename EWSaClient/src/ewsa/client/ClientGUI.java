@@ -42,6 +42,9 @@ public class ClientGUI extends javax.swing.JFrame {
         labelCoo.setText("                    ");
         labelDist.setText("     ");
         labelLoc.setText("                                   ");
+        labelWarning.setVisible(false);
+        settings.SaveSetting("string", "lastEqCoo0", "");
+        settings.SaveSetting("string", "lastEqCoo1", "");
     }
     
     private void refreshGUI(){
@@ -323,7 +326,7 @@ public class ClientGUI extends javax.swing.JFrame {
 
         labelWarning.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         labelWarning.setForeground(java.awt.Color.red);
-        labelWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/warning-icon-40x35.png"))); // NOI18N
+        labelWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/warning-icon-30x27.png"))); // NOI18N
         labelWarning.setText("WARNING");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -510,8 +513,17 @@ public class ClientGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void labelMapsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMapsMouseClicked
-        MapWindow mw= new MapWindow("47.5951518", "-122.3316393");
-        mw.initAndShowGUI();
+        String coord0= settings.getStingValue("lastEqCoo0");
+        String coord1= settings.getStingValue("lastEqCoo1");
+        System.out.println("COORD0: " + coord0);
+        System.out.println("COORD1: " + coord1);
+        if(coord0==null || coord1==null || coord0.length()<2 || coord1.length()<2){
+            JOptionPane.showMessageDialog(this, "No Earthquake to show", "Info", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            MapWindow mw= new MapWindow(coord0, coord1);
+            mw.initAndShowGUI();
+        }
     }//GEN-LAST:event_labelMapsMouseClicked
 
     private void btnGetInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetInfoActionPerformed
