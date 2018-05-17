@@ -22,20 +22,24 @@ public class LocationFinder {
     }
     
     public String getCoord(String locName){
-        // init variables
-        String address = locName;
-
-        // call the static method of JCooord
-        LatLng coord = GeoCodeResolver.findCoordForAddress(address);
-
-        // get coordinate as double values
-        BigDecimal latidude = coord.getLat();
-        BigDecimal longitude = coord.getLng();
         
-        System.out.println("Lat " + latidude + "\t Long: " + longitude);
+        try{
+            // init variables
+            String address = locName;
 
-        return(latidude+", "+longitude);
-		
+            // call the static method of JCooord
+            LatLng coord = GeoCodeResolver.findCoordForAddress(address);
+
+            // get coordinate as double values
+            BigDecimal lat = coord.getLat();
+            BigDecimal lon = coord.getLng();
+
+            System.out.println("Lat " + lat + "\t Long: " + lon);
+
+            return(lat+", "+lon);
+        }catch (NullPointerException e) {
+            return "error";
+        }
     }
     
 }
