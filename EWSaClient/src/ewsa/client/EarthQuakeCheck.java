@@ -52,8 +52,12 @@ public class EarthQuakeCheck implements Runnable{
     private DistCoord distCoo;
     private Warning warning;
     private String distance;
+    private JButton btnLogout;
+    private JButton btnSettings;
+    private JButton btnGetInfo;
+    private JLabel labelWarning;
     
-    public EarthQuakeCheck(JLabel labelMagn, JLabel labelLoc, JLabel labelDate, JLabel labelTime, JLabel labelCoo, JLabel labelDist, JButton btnStart, JButton btnStop){
+    public EarthQuakeCheck(JLabel labelMagn, JLabel labelLoc, JLabel labelDate, JLabel labelTime, JLabel labelCoo, JLabel labelDist, JButton btnStart, JButton btnStop, JButton btnLogout, JButton btnSettings, JButton btnGetInfo, JLabel labelWarning){
         //polling
         this.limit="1";
         this.labelMagn= labelMagn;
@@ -67,7 +71,11 @@ public class EarthQuakeCheck implements Runnable{
         this.btnStop= btnStop;
         clientPass+=settings.getStingValue("clientPass")+pass2;
         this.distCoo= new DistCoord();
-        this.warning= new Warning();
+        this.warning= new Warning(labelWarning, labelMagn, labelLoc);
+        this.btnLogout= btnLogout;
+        this.btnSettings= btnSettings;
+        this.btnGetInfo= btnGetInfo;
+        this.labelWarning= labelWarning;
     }
     
     public EarthQuakeCheck(String limit, JTable tableInfo){
@@ -77,21 +85,25 @@ public class EarthQuakeCheck implements Runnable{
         this.settings= new Settings();
         clientPass+=settings.getStingValue("clientPass")+pass2;
         this.distCoo= new DistCoord();
-        this.warning= new Warning();
+        this.warning= new Warning(labelWarning, labelMagn, labelLoc);
     }
         
     @Override
     public void run() {
         int limitInt= Integer.parseInt(limit);
         if(limitInt==1){
-            btnStart.setEnabled(false);
-            btnStop.setEnabled(true);
+            startGUI();
             while(true){
                 try {
                     polling();
                     Thread.sleep(1000);    //sleep Thread 1 sec
+                    if(settings.getBoolValue("stopServer")){
+                        stopGUI();
+                        return;
+                    }
                 } catch (InterruptedException ex) {
                     Logger.getLogger(EarthQuakeCheck.class.getName()).log(Level.SEVERE, null, ex);
+                    stopGUI();
                 }
             }
         }
@@ -99,6 +111,23 @@ public class EarthQuakeCheck implements Runnable{
             getInfoList= new LinkedList<String>();
             getInfo();
         }
+    }
+    
+    private void startGUI(){
+        btnStart.setEnabled(false);
+        btnStop.setEnabled(true);
+        btnLogout.setEnabled(false);
+        btnSettings.setEnabled(false);
+        btnGetInfo.setEnabled(false);
+    }
+    
+    private void stopGUI(){
+        btnStart.setEnabled(true);
+        btnStop.setEnabled(false);
+        btnLogout.setEnabled(true);
+        btnSettings.setEnabled(true);
+        btnGetInfo.setEnabled(true);
+        settings.SaveSetting("boolean", "stopServer", "false");
     }
     
     
@@ -110,7 +139,8 @@ public class EarthQuakeCheck implements Runnable{
         labelLoc.setText(place);
         labelMagn.setText(magn);
         labelCoo.setText(coord0+", "+coord1);
-        labelDist.setText(this.distance+" Km");
+        if(this.distance.length()>1) labelDist.setText(this.distance+" Km");
+        else labelDist.setText("");
     }
     
     private void refreshTable(){
@@ -150,7 +180,10 @@ public class EarthQuakeCheck implements Runnable{
     private boolean locationFilter(String coord0, String coord1){
         //TRUE if location is within user-set limit.
         String myLocStr= settings.getStingValue("usrLocation");
-        if(myLocStr.equals("worldwide")) return true;
+        if(myLocStr.equals("worldwide")){
+            this.distance= "";
+            return true;
+        }
         double myCoo1= Double.parseDouble(myLocStr.split(", ")[0]);
         double myCoo2= Double.parseDouble(myLocStr.split(", ")[1]);
         double incomeLoc1= Double.parseDouble(coord0);
