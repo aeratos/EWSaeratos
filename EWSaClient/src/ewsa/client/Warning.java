@@ -41,10 +41,17 @@ public class Warning extends javax.swing.JFrame {
     
     private String soundPath= "/home/nicholas/OneDrive/University/Laboratorio_Sicurezza_Informatica/EWSaeratos/Git_EWSa/My_Fork/EWSaeratos/EWSaClient/src/ewsa/client/EASaeratosSound.wav";
     File soundFile = new File(soundPath);
+    private JLabel labelWarning;
+    private JLabel labelMagn;
+    private JLabel labelLoc;
     
-    public Warning() {
+    public Warning(JLabel labelWarning, JLabel labelMagn, JLabel labelLoc) {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.labelWarning= labelWarning;
+        this.labelMagn= labelMagn;
+        this.labelLoc= labelLoc;
         startBlink();
         //warningSound();
     }
@@ -127,7 +134,7 @@ public class Warning extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Warning().setVisible(true);
+                new Warning(null, null, null).setVisible(true);
             }
         });
     }

@@ -28,6 +28,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,17 +45,21 @@ public class LoginWindow {
     private JButton btnLogout;
     private JButton btnSettings;
     private JButton btnStart;
+    private JLabel labelName;
+    private String name;
     
-    public LoginWindow(JButton btnLogout, JButton btnSettings, JButton btnStart){
+    public LoginWindow(JButton btnLogout, JButton btnSettings, JButton btnStart, JLabel labelName){
         this.btnLogout=btnLogout;
         this.btnSettings=btnSettings;
         this.btnStart=btnStart;
+        this.labelName= labelName;
     }
     
     private void updateGUI(){
         btnLogout.setEnabled(true);
         btnSettings.setEnabled(true);
         btnStart.setEnabled(true);
+        labelName.setText("Hello " + name);
     }
     
     WindowListener exitListener = new WindowAdapter() {
@@ -90,8 +95,8 @@ public class LoginWindow {
             if(data.getString("status").equals("logged")){
                 String pass= data.getString("pass");
                 settings.SaveSetting("string", "clientPass", pass);
-                String name= data.getString("name");
-                System.out.println("NAME: " + name);  //debug
+                this.name= data.getString("name");
+                settings.SaveSetting("string", "usrName", name);
                 updateGUI();
             }
             else{
