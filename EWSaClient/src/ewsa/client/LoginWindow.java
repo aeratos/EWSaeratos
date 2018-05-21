@@ -47,12 +47,14 @@ public class LoginWindow {
     private JButton btnStart;
     private JLabel labelName;
     private String name;
+    private JButton btnLogin;
     
-    public LoginWindow(JButton btnLogout, JButton btnSettings, JButton btnStart, JLabel labelName){
+    public LoginWindow(JButton btnLogout, JButton btnSettings, JButton btnStart, JLabel labelName, JButton btnLogin){
         this.btnLogout=btnLogout;
         this.btnSettings=btnSettings;
         this.btnStart=btnStart;
         this.labelName= labelName;
+        this.btnLogin= btnLogin;
     }
     
     private void updateGUI(){
@@ -97,6 +99,7 @@ public class LoginWindow {
                 settings.SaveSetting("string", "clientPass", pass);
                 this.name= data.getString("name");
                 settings.SaveSetting("string", "usrName", name);
+                btnLogin.setEnabled(false);
                 updateGUI();
             }
             else{
