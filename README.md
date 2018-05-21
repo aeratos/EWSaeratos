@@ -1,6 +1,6 @@
 # EWSaeratos
 
-**EWSaeratos** is an application aimed at guaranteeing the safety of people in the event of an earthquake.
+**EWSaeratos** is an application  at guaranteeing the safety of people in the event of an earthquake.
 It also provides useful informations about the latest records of global and local earthquakes.
 
 ## SERVER
