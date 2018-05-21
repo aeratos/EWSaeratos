@@ -1,7 +1,7 @@
 # EWSaeratos
 
-**EWSaeratos** is an application  at guaranteeing the safety of people in the event of an earthquake.
-It also provides useful informations about the latest records of global and local earthquakes.
+**EWSaeratos** is a project developed to increase civil protection. **Aeratos** team believes that in a emercency situation every seconds could make the difference, for this reason we built a desktop application to launch civil warnings in case of earthquake.
+Premium users can also get a list of last earthquakes, filtering them by location, distance and magnitude.
 
 ## SERVER
 
@@ -19,8 +19,8 @@ Open your browser and go to "http://localhost:3000/ and follow the instruction t
 
 
 ### Privacy 
-Your Privacy is garanteed by the integration of *Google Oauth* protocol.
-On startup of Rails server is created a logger with this function:
+Privacy is garanteed by the integration of *Google Oauth* protocol.
+When Rails server starts, it use the following function to create a logger:
 
 ```Ruby
 OmniAuth.config.logger = Rails.logger
@@ -33,7 +33,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :google_oauth2, '543824881127-hilli6393c0dvcb66en2s1695l1i9t8p.apps.googleusercontent.com', 'DmBRdM2XryjfoGqZpa48ytCa',      access_type: 'online', prompt: ''
 end
 ```
-This logger allows you to save the Current-User in a database (sqlite) with this form:
+The logger allows you to storage the current user in a SQLITE database with this form:
 
 ```Ruby
 class User < ActiveRecord::Base
@@ -51,17 +51,8 @@ class User < ActiveRecord::Base
 end
 ```
 
-### Quake Fuctions ###
-The report of latest earthquake is showed in this way:
-
-![GitHub Logo](quakeReport.jpg)
-
-And you can see the location in the pop-up map:
-
-![GitHub Logo](map.jpg)
-
-These informations are given using the API from: https://earthquake.usgs.gov/fdsnws/event/1/
-by yhe controller:
+### Earthquake Info ###
+The Earthquake infos are provided by a Government agency, the United States Geological Survey (USGS), using the API https://earthquake.usgs.gov/fdsnws/event/1/
 
 ```Ruby
 class QuakeController < ApplicationController
@@ -113,11 +104,10 @@ class QuakeController < ApplicationController
 end
 ```
 ### Security ###
-The EWSaeratos securety is garanteed by the sum of two differents passwords: one insert by default in the client and the other passed by the Rails server when login is succesful.
+The communication are secured by using a two-step password. The first half of the password is sent to client by the server after the loggin, while the second part is stored in the client. By merging the two part, the client obtains the final password, it will be used to guarantee the access to earthquakes informations.
+With this approach we can guarantee that a user must use the client application and must be logged to gain earthquake informations.
 
-With this method we solve two problems: an User who want take informations without usig the client and an User who want using the application without logged in.
-
-The Rails server gives the first part of password with this function:
+Rails function used to send password to client:
 
 ```Ruby
 class StatusController < ApplicationController
