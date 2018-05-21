@@ -65,7 +65,7 @@ public class LoginWindow {
     WindowListener exitListener = new WindowAdapter() {
         public void windowClosing(WindowEvent e) {
             int confirm = JOptionPane.showOptionDialog(
-                 null, "Do you want be a premium user?", 
+                 null, "Do you want switch to Premium User?", 
                  "Premium Account", JOptionPane.YES_NO_OPTION, 
                  JOptionPane.QUESTION_MESSAGE, null, null, null);
             if (confirm == 0){

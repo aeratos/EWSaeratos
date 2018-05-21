@@ -69,6 +69,15 @@ public class SettingsGUI extends javax.swing.JDialog {
             settings.SaveSetting("string", "usrLocName", location);
         }
         labelLocationSet.setText("Location Set: " + location);
+        
+        if(settings.getBoolValue("soundEff")){
+            btnOn.setSelected(true);
+            btnOff.setSelected(false);
+        }
+        else{
+            btnOn.setSelected(false);
+            btnOff.setSelected(true);
+        }
     }
 
     /**
@@ -97,6 +106,10 @@ public class SettingsGUI extends javax.swing.JDialog {
         labelLocationSet = new javax.swing.JLabel();
         labelMagnSet = new javax.swing.JLabel();
         labelListSet = new javax.swing.JLabel();
+        labelSound = new javax.swing.JLabel();
+        btnOn = new javax.swing.JRadioButton();
+        btnOff = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -212,6 +225,39 @@ public class SettingsGUI extends javax.swing.JDialog {
         labelListSet.setForeground(java.awt.Color.darkGray);
         labelListSet.setText("Set");
 
+        labelSound.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        labelSound.setForeground(java.awt.Color.darkGray);
+        labelSound.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/volume-black-icon-30x30.png"))); // NOI18N
+        labelSound.setText("Sound");
+
+        btnOn.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btnOn.setText("On");
+        btnOn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOnMouseClicked(evt);
+            }
+        });
+        btnOn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOnActionPerformed(evt);
+            }
+        });
+
+        btnOff.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btnOff.setText("Off");
+        btnOff.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOffMouseClicked(evt);
+            }
+        });
+        btnOff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOffActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/credit-card-icon-black-40x40.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,41 +265,55 @@ public class SettingsGUI extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnStandard)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnPremium))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cityLabel2)
-                                .addGap(93, 93, 93)
-                                .addComponent(boxDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(boxLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(cityLabel1)
-                                    .addGap(37, 37, 37)
-                                    .addComponent(boxMagnitude, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDistSet)
-                            .addComponent(labelMagnSet)
-                            .addComponent(labelListSet)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel7))
+                                .addGap(86, 86, 86)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelLocationSet)
+                                    .addComponent(fieldLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnStandard)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(btnPremium)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addComponent(btnSetLoc))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel7))
-                        .addGap(86, 86, 86)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelLocationSet)
-                            .addComponent(fieldLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(btnSetLoc)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cityLabel2)
+                                        .addGap(93, 93, 93)
+                                        .addComponent(boxDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(boxLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(cityLabel1)
+                                            .addGap(37, 37, 37)
+                                            .addComponent(boxMagnitude, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(50, 50, 50)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelDistSet)
+                                    .addComponent(labelMagnSet)
+                                    .addComponent(labelListSet)))
+                            .addComponent(labelSound)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnOn)
+                                .addGap(28, 28, 28)
+                                .addComponent(btnOff)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -268,7 +328,7 @@ public class SettingsGUI extends javax.swing.JDialog {
                     .addComponent(jLabel4)
                     .addComponent(fieldLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSetLoc))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cityLabel2)
                     .addComponent(boxDistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -284,12 +344,21 @@ public class SettingsGUI extends javax.swing.JDialog {
                     .addComponent(boxLimit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelListSet))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(labelSound)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnStandard)
-                    .addComponent(btnPremium))
-                .addGap(27, 27, 27))
+                    .addComponent(btnOn)
+                    .addComponent(btnOff))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnStandard)
+                            .addComponent(btnPremium)))
+                    .addComponent(jLabel1))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -354,6 +423,24 @@ public class SettingsGUI extends javax.swing.JDialog {
         combosManager();
     }//GEN-LAST:event_boxLimitActionPerformed
 
+    private void btnOnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOnMouseClicked
+
+    private void btnOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOnActionPerformed
+        settings.SaveSetting("boolean", "soundEff", "true");
+        combosManager();
+    }//GEN-LAST:event_btnOnActionPerformed
+
+    private void btnOffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOffMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOffMouseClicked
+
+    private void btnOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOffActionPerformed
+        settings.SaveSetting("boolean", "soundEff", "false");
+        combosManager();
+    }//GEN-LAST:event_btnOffActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -400,12 +487,15 @@ public class SettingsGUI extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> boxDistance;
     private javax.swing.JComboBox<String> boxLimit;
     private javax.swing.JComboBox<String> boxMagnitude;
+    private javax.swing.JRadioButton btnOff;
+    private javax.swing.JRadioButton btnOn;
     private javax.swing.JRadioButton btnPremium;
     private javax.swing.JButton btnSetLoc;
     private javax.swing.JRadioButton btnStandard;
     private javax.swing.JLabel cityLabel1;
     private javax.swing.JLabel cityLabel2;
     private javax.swing.JTextField fieldLocation;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -414,5 +504,6 @@ public class SettingsGUI extends javax.swing.JDialog {
     private javax.swing.JLabel labelListSet;
     private javax.swing.JLabel labelLocationSet;
     private javax.swing.JLabel labelMagnSet;
+    private javax.swing.JLabel labelSound;
     // End of variables declaration//GEN-END:variables
 }

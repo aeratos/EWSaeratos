@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,8 @@ import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
 
 /**
  *
@@ -44,6 +47,9 @@ public class Warning extends javax.swing.JFrame {
     private JLabel labelWarning;
     private JLabel labelMagn;
     private JLabel labelLoc;
+    private Settings settings;
+    
+    private Clip clip;
     
     public Warning(JLabel labelWarning, JLabel labelMagn, JLabel labelLoc) {
         initComponents();
@@ -52,27 +58,54 @@ public class Warning extends javax.swing.JFrame {
         this.labelWarning= labelWarning;
         this.labelMagn= labelMagn;
         this.labelLoc= labelLoc;
+        this.settings= new Settings();
     }
     
     public void start(){
         startBlink();
-        //warningSound();
+        if(settings.getBoolValue("soundEff")){
+            SoundEffect();
+        }
     }
     
     private void startBlink(){
         WarningBlink wb= new WarningBlink(this, labelEarhquake);
         Thread wbThr= new Thread(wb);
         wbThr.start();
+        this.setVisible(true);
         LabelBlink lb= new LabelBlink(labelWarning, labelMagn, labelLoc);
         Thread lbThr= new Thread(lb);
         lbThr.start();
     }
     
-    private void warningSound(){
-        Media hit = new Media(new File(soundPath).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(hit);
-        mediaPlayer.play();
+    private void SoundEffect() {
+        try {
+            maxVolume();
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("EASaeratosSound.wav"));
+            DataLine.Info info = new DataLine.Info(Clip.class, inputStream.getFormat());
+            clip = (Clip)AudioSystem.getLine(info);
+            clip.open(inputStream);
+            if (clip.isRunning()) clip.stop();
+            clip.start();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
     }
+    
+    
+    private void maxVolume(){
+        try {
+            String cmd = "amixer -c 0 set Master playback 100% unmute";
+            Process proc = Runtime.getRuntime().exec(cmd);
+        } catch (IOException ex) {
+            Logger.getLogger(Warning.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,16 +128,16 @@ public class Warning extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(36, 36, 36)
                 .addComponent(labelEarhquake)
-                .addContainerGap(419, Short.MAX_VALUE))
+                .addContainerGap(395, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(256, 256, 256)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(261, Short.MAX_VALUE)
                 .addComponent(labelEarhquake)
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addGap(252, 252, 252))
         );
 
         pack();

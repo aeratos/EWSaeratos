@@ -33,7 +33,7 @@ public class MapWindow {
         //https://www.google.com/maps/search/?api=1&query=47.5951518,-122.3316393
         String defaultURL= "https://www.google.com/maps/search/?api=1&query=";
         String newURL= defaultURL+co1;
-        newURL= defaultURL+","+co2;
+        newURL= newURL+","+co2;
         return newURL;
     }
     
