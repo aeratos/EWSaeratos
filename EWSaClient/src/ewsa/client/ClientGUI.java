@@ -45,6 +45,7 @@ public class ClientGUI extends javax.swing.JFrame {
         labelWarning.setVisible(false);
         settings.SaveSetting("string", "lastEqCoo0", "");
         settings.SaveSetting("string", "lastEqCoo1", "");
+        settings.SaveSetting("boolean", "stopServer", "false");
     }
     
     private void refreshGUI(){
@@ -57,6 +58,16 @@ public class ClientGUI extends javax.swing.JFrame {
             btnGetInfo.setEnabled(false);
             labelUsrType.setText("        ");
             labelName.setText("Please Login");
+            settings.SaveSetting("boolean", "ewsapremium", "false");
+            settings.SaveSetting("string", "usrLocation", "worldwide");
+            settings.SaveSetting("string", "usrLocName", "worldwide");
+            settings.SaveSetting("int", "usrDist", "-1");
+            settings.SaveSetting("int", "usrMagn", "-1");
+            settings.SaveSetting("int", "usrLimit", "-1");
+            settings.SaveSetting("String", "usrName", "");
+            settings.SaveSetting("String", "lastEqCoo0", "");
+            settings.SaveSetting("String", "lastEqCoo1", "");
+            settings.SaveSetting("boolean", "soundEff", "true");
         }
         else{
             btnStop.setEnabled(false);
@@ -515,13 +526,11 @@ public class ClientGUI extends javax.swing.JFrame {
     private void labelMapsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMapsMouseClicked
         String coord0= settings.getStingValue("lastEqCoo0");
         String coord1= settings.getStingValue("lastEqCoo1");
-        System.out.println("COORD0: " + coord0);
-        System.out.println("COORD1: " + coord1);
         if(coord0==null || coord1==null || coord0.length()<2 || coord1.length()<2){
             JOptionPane.showMessageDialog(this, "No Earthquake to show", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-            MapWindow mw= new MapWindow(coord0, coord1);
+            MapWindow mw= new MapWindow(coord1, coord0);
             mw.initAndShowGUI();
         }
     }//GEN-LAST:event_labelMapsMouseClicked
@@ -534,7 +543,7 @@ public class ClientGUI extends javax.swing.JFrame {
 
     private void btnSoundTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoundTestActionPerformed
         Warning warn= new Warning(labelWarning, labelMagn, labelLoc);
-        warn.setVisible(true);
+        warn.start();
     }//GEN-LAST:event_btnSoundTestActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed

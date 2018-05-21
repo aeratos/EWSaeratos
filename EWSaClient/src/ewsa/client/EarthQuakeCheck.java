@@ -154,7 +154,6 @@ public class EarthQuakeCheck implements Runnable{
         Iterator<String> itList= getInfoList.iterator();
         int rowCounter=0;
         while(itList.hasNext()){
-            System.out.println("RefreshTable check");
             String tmpArray[]= itList.next().split("~");
             String tmpDate= tmpArray[1].split(" ")[0];
             String tmpTime= tmpArray[1].split(" ")[1];
@@ -222,7 +221,7 @@ public class EarthQuakeCheck implements Runnable{
                 String coord0=dataElem.getString("coord").split(",")[0].substring(1);
                 String coord1=dataElem.getString("coord").split(",")[1];
 
-                System.out.println("id: "+id+" Place: "+place+" time: "+time+" Magn: "+magn +" coord0: "+coord0 +" coord1: "+coord1);                
+                //System.out.println("id: "+id+" Place: "+place+" time: "+time+" Magn: "+magn +" coord0: "+coord0 +" coord1: "+coord1);                
                 if(locationFilter(coord0, coord1) && magnitudeFilter(magn) && lastQuakeCheck(id)){
                     refreshLastEq(place, time, magn, coord0, coord1);
                     warning.start();
@@ -259,7 +258,7 @@ public class EarthQuakeCheck implements Runnable{
                 String coord0=dataElem.getString("coord").split(",")[0].substring(1);
                 String coord1=dataElem.getString("coord").split(",")[1];
 
-                System.out.println("id: "+id+" Place: "+place+" time: "+time+" Magn: "+magn +" coord0: "+coord0 +" coord1: "+coord1);                
+                //System.out.println("id: "+id+" Place: "+place+" time: "+time+" Magn: "+magn +" coord0: "+coord0 +" coord1: "+coord1);                
                 if(locationFilter(coord0, coord1)){
                     String toAdd= place+"~"+time+"~"+magn;
                     getInfoList.add(toAdd);

@@ -34,7 +34,7 @@ public class LocationFinder {
             BigDecimal lat = coord.getLat();
             BigDecimal lon = coord.getLng();
 
-            System.out.println("Lat " + lat + "\t Long: " + lon);
+            //System.out.println("Lat " + lat + "\t Long: " + lon);
 
             return(lat+", "+lon);
         }catch (NullPointerException e) {
