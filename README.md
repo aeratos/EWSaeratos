@@ -14,7 +14,7 @@ $ rails start
 ```
 Open your browser and go to "http://localhost:3000/ and follow the instruction to download the Client
 
-![GitHub Logo](pics/homePage.png)
+![GitHub Logo](pics/homepage.png)
 
 
 
