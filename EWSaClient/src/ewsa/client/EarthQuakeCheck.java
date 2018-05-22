@@ -262,6 +262,7 @@ public class EarthQuakeCheck implements Runnable{
                 if(locationFilter(coord0, coord1)){
                     String toAdd= place+"~"+time+"~"+magn;
                     getInfoList.add(toAdd);
+                    if(getInfoList.size()>=settings.getIntValue("usrLimit")) break;
                 }
             }
             refreshTable();
