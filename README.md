@@ -137,7 +137,7 @@ To login the user must click on "Login Button". The Google login page is reached
 Once the user had login successfully with his Google Account, the same browser will be redirect to our welcome html page. When the user close the browser will be prompted to be a Standard or Premium User.
 
 The following code is used to create the internal browser window:
-```
+```Java
 private static Scene createScene() {
         Scene scene = new Scene(new Group());
 
@@ -188,7 +188,7 @@ In this Panel is show the last earthquake infos that match user restrictions.
 By clicking Start a Thread will be initialized. It will fetch infos from server every second, filtering them and calculate if match user preferences.
 To Stop and kill the Thread user can press Stop button. It will flag a boolean system variable, then the Thread will check every seconds the value, if it's true will stop polling function.
 Thread Start:
-```
+```Java
 public void run() {
         int limitInt= Integer.parseInt(limit);
         if(limitInt==1){
@@ -215,7 +215,7 @@ public void run() {
 ```
 
 **Polling** function get the info by server, parse them, and check if them match user preferences. It will also filter the earthquake id, to avoid different warnings on the same earthquake.
-```
+```Java
 private void polling(){
 	BufferedReader br=null;
 	try {
