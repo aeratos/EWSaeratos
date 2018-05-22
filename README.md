@@ -14,7 +14,7 @@ $ rails start
 ```
 Open your browser and go to "http://localhost:3000/ and follow the instruction to download the Client
 
-![GitHub Logo](homePage.png)
+![GitHub Logo](pics/homePage.png)
 
 
 
@@ -129,11 +129,11 @@ end
 
 ## CLIENT ##
 The first startup requires user login.
-![GitHub Logo](clientscreen.png)
+![GitHub Logo](pics/clientscreen.png)
 
 ### Login ###
 To login the user must click on "Login Button". The Google login page is reached by an internal browser, thus even user without browser or with a poor connection can easily access to our service.
-![GitHub Logo](loginPage.png)
+![GitHub Logo](pics/loginPage.png)
 Once the user had login successfully with his Google Account, the same browser will be redirect to our welcome html page. When the user close the browser will be prompted to be a Standard or Premium User.
 
 The following code is used to create the internal browser window:
@@ -176,12 +176,12 @@ User can set his preferences in Settings window:
 - Limit: this is a features reserved to Premium user, it allows to select the max number of earthquakes that will be display on "Get Info" table.
 - Sound: user can turn on/off audio warning.
 - User Type: allows to switch to Standard or Premium User.
-![GitHub Logo](settings.png)
+![GitHub Logo](pics/settings.png)
 
 
 ### Last Earthquake Info ###
 In this Panel is show the last earthquake infos that match user restrictions.
-![GitHub Logo](earthquakeinfo.png)
+![GitHub Logo](pics/earthquakeinfo.png)
 
 
 ### Start ###
@@ -255,8 +255,8 @@ private void polling(){
 
 ### Map ###
 This feature will show map location using the internal browser. It will be available in case of earthquake.
-![GitHub Logo](map.png)
+![GitHub Logo](pics/map.png)
 
 ### Get Info ###
 This features is reserved to Premium user. It allows to get info of last earthquakes that matches user settings.
-![GitHub Logo](getinfo.png)
+![GitHub Logo](pics/getinfo.png)
