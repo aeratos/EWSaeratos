@@ -1,6 +1,0 @@
-/* ---- Per compilare ---- */
-javac -cp .:lib/* Avvio.java
-
-
-/* ---- Per eseguire ---- */
-java -cp .:lib/* Avvio
