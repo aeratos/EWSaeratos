@@ -139,7 +139,7 @@ public class EarthQuakeCheck implements Runnable{
         labelLoc.setText(place);
         labelMagn.setText(magn);
         labelCoo.setText(coord0+", "+coord1);
-        if(this.distance.length()>1) labelDist.setText(this.distance+" Km");
+        if(this.distance.length()>=1) labelDist.setText(this.distance+" Km");
         else labelDist.setText("");
     }
     
