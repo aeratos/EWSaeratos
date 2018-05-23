@@ -536,7 +536,7 @@ public class ClientGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_labelMapsMouseClicked
 
     private void btnGetInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetInfoActionPerformed
-        EarthQuakeCheck eqc= new EarthQuakeCheck("3", tableInfo);   
+        EarthQuakeCheck eqc= new EarthQuakeCheck(tableInfo);   
         Thread eqcThr= new Thread(eqc);
         eqcThr.start();
     }//GEN-LAST:event_btnGetInfoActionPerformed

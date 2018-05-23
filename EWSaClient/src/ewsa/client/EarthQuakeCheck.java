@@ -33,7 +33,7 @@ import javax.swing.JButton;
  */
 public class EarthQuakeCheck implements Runnable{
     
-    private String limit;
+    private int limit;
     private String lastEqId= "";
     private String defaultURL="http://localhost:3000/quake?limit=";
     private JLabel labelMagn;
@@ -59,7 +59,7 @@ public class EarthQuakeCheck implements Runnable{
     
     public EarthQuakeCheck(JLabel labelMagn, JLabel labelLoc, JLabel labelDate, JLabel labelTime, JLabel labelCoo, JLabel labelDist, JButton btnStart, JButton btnStop, JButton btnLogout, JButton btnSettings, JButton btnGetInfo, JLabel labelWarning){
         //polling
-        this.limit="1";
+        this.limit=1;
         this.labelMagn= labelMagn;
         this.labelLoc= labelLoc;
         this.labelDate= labelDate;
@@ -78,9 +78,10 @@ public class EarthQuakeCheck implements Runnable{
         this.labelWarning= labelWarning;
     }
     
-    public EarthQuakeCheck(String limit, JTable tableInfo){
+    public EarthQuakeCheck(JTable tableInfo){
         //getInfo
-        this.limit=limit;
+        this.settings= new Settings();
+        this.limit=settings.getIntValue("usrLimit");
         this.tableInfo=tableInfo;
         this.settings= new Settings();
         clientPass+=settings.getStingValue("clientPass")+pass2;
@@ -89,7 +90,7 @@ public class EarthQuakeCheck implements Runnable{
         
     @Override
     public void run() {
-        int limitInt= Integer.parseInt(limit);
+        int limitInt= limit;
         if(limitInt==1){
             startGUI();
             while(true){
@@ -262,7 +263,6 @@ public class EarthQuakeCheck implements Runnable{
                 if(locationFilter(coord0, coord1)){
                     String toAdd= place+"~"+time+"~"+magn;
                     getInfoList.add(toAdd);
-                    if(getInfoList.size()>=settings.getIntValue("usrLimit")) break;
                 }
             }
             refreshTable();
