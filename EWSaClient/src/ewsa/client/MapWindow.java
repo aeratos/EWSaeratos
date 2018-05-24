@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AERATOS TEAM
  */
 package ewsa.client;
 
@@ -17,10 +15,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javax.swing.JFrame;
 
-/**
- *
- * @author nicholas
- */
 public class MapWindow {
     
     static String url="";

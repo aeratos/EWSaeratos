@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AERATOS TEAM
  */
 package ewsa.client;
 
@@ -10,17 +8,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
-/**
- *
- * @author nicholas
- */
+
 public class ClientGUI extends javax.swing.JFrame {
     
     private Settings settings= new Settings();
     
     public ClientGUI() {
         initComponents();
+        this.setTitle("EWSaeratos");
+        this.getContentPane().setBackground(Color.WHITE);
         
         startApp();
         refreshGUI();
@@ -72,7 +70,7 @@ public class ClientGUI extends javax.swing.JFrame {
         else{
             btnStop.setEnabled(false);
             btnLogin.setEnabled(false);
-            labelName.setText("Hello: " + settings.getStingValue("usrName"));
+            labelName.setText("Hello " + settings.getStingValue("usrName"));
             if(settings.getBoolValue("ewsapremium")){
                 btnGetInfo.setEnabled(true);
                 labelUsrType.setForeground(Color.BLUE);
@@ -86,6 +84,18 @@ public class ClientGUI extends javax.swing.JFrame {
         }
     }
     
+    
+    public JTable getTable() {
+    	return this.tableInfo;
+    }
+    
+    public JButton getStartBtn() {
+    	return this.btnStart;
+    }
+    
+    public JButton getStopBtn() {
+    	return this.btnStop;
+    }
    
     
     
@@ -129,7 +139,7 @@ public class ClientGUI extends javax.swing.JFrame {
         labelWarning = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(java.awt.Color.white);
+        setBackground(new java.awt.Color(168, 32, 38));
         setResizable(false);
 
         btnStart.setFont(new java.awt.Font("Ubuntu", 1, 20)); // NOI18N
@@ -178,7 +188,7 @@ public class ClientGUI extends javax.swing.JFrame {
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         labelName.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        labelName.setForeground(new java.awt.Color(255, 90, 78));
+        labelName.setForeground(new java.awt.Color(168, 32, 38));
         labelName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ewsa/client/Icons/aeratos-logo-transparent-40x40.png"))); // NOI18N
         labelName.setText("Hello ABDULO");
 
@@ -251,7 +261,7 @@ public class ClientGUI extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Date", "Time", "Location", "Magnitude"
+                "Date", "Time", "Location", "Magn"
             }
         ) {
             Class[] types = new Class [] {
@@ -271,7 +281,10 @@ public class ClientGUI extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableInfo);
         if (tableInfo.getColumnModel().getColumnCount() > 0) {
-            tableInfo.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tableInfo.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tableInfo.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tableInfo.getColumnModel().getColumn(2).setPreferredWidth(180);
+            tableInfo.getColumnModel().getColumn(3).setPreferredWidth(30);
         }
 
         btnGetInfo.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
@@ -559,7 +572,6 @@ public class ClientGUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -582,7 +594,6 @@ public class ClientGUI extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ClientGUI().setVisible(true);

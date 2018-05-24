@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AERATOS TEAM
  */
 package ewsa.client;
 
@@ -27,10 +25,8 @@ import java.util.Locale;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import javax.swing.JButton;
-/**
- *
- * @author nicholas
- */
+import javax.swing.JOptionPane;
+
 public class EarthQuakeCheck implements Runnable{
     
     private int limit;
@@ -56,6 +52,8 @@ public class EarthQuakeCheck implements Runnable{
     private JButton btnSettings;
     private JButton btnGetInfo;
     private JLabel labelWarning;
+    private boolean serverUnreachable;
+    private boolean polling;
     
     public EarthQuakeCheck(JLabel labelMagn, JLabel labelLoc, JLabel labelDate, JLabel labelTime, JLabel labelCoo, JLabel labelDist, JButton btnStart, JButton btnStop, JButton btnLogout, JButton btnSettings, JButton btnGetInfo, JLabel labelWarning){
         //polling
@@ -76,6 +74,8 @@ public class EarthQuakeCheck implements Runnable{
         this.btnSettings= btnSettings;
         this.btnGetInfo= btnGetInfo;
         this.labelWarning= labelWarning;
+        this.serverUnreachable= false;
+        this.polling= true;
     }
     
     public EarthQuakeCheck(JTable tableInfo){
@@ -86,12 +86,12 @@ public class EarthQuakeCheck implements Runnable{
         this.settings= new Settings();
         clientPass+=settings.getStingValue("clientPass")+pass2;
         this.distCoo= new DistCoord();
+        this.polling=false;
     }
         
     @Override
     public void run() {
-        int limitInt= limit;
-        if(limitInt==1){
+        if(polling){
             startGUI();
             while(true){
                 try {
@@ -101,9 +101,10 @@ public class EarthQuakeCheck implements Runnable{
                         stopGUI();
                         return;
                     }
+                    if(serverUnreachable) return;
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(EarthQuakeCheck.class.getName()).log(Level.SEVERE, null, ex);
                     stopGUI();
+                    Logger.getLogger(EarthQuakeCheck.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -139,13 +140,25 @@ public class EarthQuakeCheck implements Runnable{
         labelLoc.setText(place);
         labelMagn.setText(magn);
         labelCoo.setText(coord0+", "+coord1);
-        if(this.distance.length()>=1) labelDist.setText(this.distance+" Km");
+        if(this.distance.length()>1) labelDist.setText(this.distance+" Km");
         else labelDist.setText("");
+    }
+    
+    private void emptyList(){
+        int rowNum= tableInfo.getRowCount();
+        DefaultTableModel model = (DefaultTableModel) tableInfo.getModel();
+        for(int i=0; i<rowNum; i++){
+            tableInfo.getModel().setValueAt("", i, 0);
+            tableInfo.getModel().setValueAt("", i, 1);
+            tableInfo.getModel().setValueAt("", i, 2);
+            tableInfo.getModel().setValueAt("", i, 3);
+        }
     }
     
     private void refreshTable(){
         //array: place, time, magn
         //table: date, time, location, magnitude
+        emptyList();
         int listSize= getInfoList.size();
         int rowNum= tableInfo.getRowCount();
         if(listSize>rowNum){
@@ -175,6 +188,12 @@ public class EarthQuakeCheck implements Runnable{
         if(!lastEqId.equals(id)) return true;
         return false;
     }
+    
+    
+    public int serverResNumber() {
+    	return getInfoList.size();
+    }
+
     
     private boolean locationFilter(String coord0, String coord1){
         //TRUE if location is within user-set limit.
@@ -233,8 +252,9 @@ public class EarthQuakeCheck implements Runnable{
             br.close();
         } catch (IOException ex) {
             Logger.getLogger(EarthQuakeCheck.class.getName()).log(Level.SEVERE, null, ex);
-            btnStart.setEnabled(true);
-            btnStop.setEnabled(false);
+            stopGUI();
+            JOptionPane.showMessageDialog(null, "Server Unreachable", "Error", JOptionPane.ERROR_MESSAGE);
+            serverUnreachable=true;
         } catch (JSONException ex) {
             Logger.getLogger(EarthQuakeCheck.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -242,6 +262,8 @@ public class EarthQuakeCheck implements Runnable{
     
     
     private void getInfo(){
+        getInfoList.clear();
+        this.limit=settings.getIntValue("usrLimit");    //to refresh limit if a runtime change was made
         BufferedReader br=null;
         try {
             URL url=new URL(defaultURL+limit+"&passw="+clientPass);
@@ -266,8 +288,11 @@ public class EarthQuakeCheck implements Runnable{
                 }
             }
             refreshTable();
+            JOptionPane.showMessageDialog(null, "Info received", "Info", JOptionPane.INFORMATION_MESSAGE);
             br.close();
         } catch (IOException ex) {
+            refreshTable();
+            JOptionPane.showMessageDialog(null, "Server Unreachable", "Error", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(EarthQuakeCheck.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
             Logger.getLogger(EarthQuakeCheck.class.getName()).log(Level.SEVERE, null, ex);

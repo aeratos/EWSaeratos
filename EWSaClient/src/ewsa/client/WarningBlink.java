@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AERATOS TEAM
  */
 package ewsa.client;
 
@@ -11,10 +9,6 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-/**
- *
- * @author nicholas
- */
 public class WarningBlink implements Runnable{
     
     private JFrame frame;

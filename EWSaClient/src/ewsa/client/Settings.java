@@ -1,17 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AERATOS TEAM
  */
 package ewsa.client;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.prefs.*;
 
-/**
- *
- * @author nicho
- */
 public class Settings {
     
     Preferences setting= Preferences.userRoot();
