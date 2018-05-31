@@ -134,6 +134,7 @@ The first startup requires user login.
 ### Login ###
 To login the user must click on "Login Button". The Google login page is reached by an internal browser, thus even user without browser or with a poor connection can easily access to our service.
 ![GitHub Logo](pics/loginPage.png)
+
 Once the user had login successfully with his Google Account, the same browser will be redirect to our welcome html page. When the user close the browser will be prompted to be a Standard or Premium User.
 
 The following code is used to create the internal browser window:
