@@ -24,15 +24,13 @@ public class MapWindow {
     }
     
     private String linkBuilder(String co1, String co2){
-        //https://www.google.com/maps/search/?api=1&query=47.5951518,-122.3316393
-        String defaultURL= "https://www.google.com/maps/search/?api=1&query=";
-        String newURL= defaultURL+co1;
-        newURL= newURL+","+co2;
-        return newURL;
+    	//https://www.google.com/maps/@37.0625,-95.677068,9z?force=lite
+        String URL= "https://www.google.com/maps/@"+co1+","+co2+",9z?force=lite";
+        return URL;
     }
     
     public void initAndShowGUI() {
-        JFrame frame = new JFrame("Swing and JavaFX");
+        JFrame frame = new JFrame("Map");
         final JFXPanel fxPanel = new JFXPanel();
         frame.add(fxPanel);
         frame.setSize(800 , 610);
