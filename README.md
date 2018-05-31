@@ -260,8 +260,10 @@ private void polling(){
 
 ### Map ###
 This feature will show map location using the internal browser. It will be available in case of earthquake.
+
 ![GitHub Logo](pics/map.png)
 
 ### Get Info ###
 This features is reserved to Premium user. It allows to get info of last earthquakes that matches user settings.
+
 ![GitHub Logo](pics/getinfo.png)
