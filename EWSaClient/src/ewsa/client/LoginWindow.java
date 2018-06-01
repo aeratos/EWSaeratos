@@ -42,13 +42,15 @@ public class LoginWindow {
     private JLabel labelName;
     private String name;
     private JButton btnLogin;
+    private JButton btnGetInfo;
     
-    public LoginWindow(JButton btnLogout, JButton btnSettings, JButton btnStart, JLabel labelName, JButton btnLogin){
+    public LoginWindow(JButton btnLogout, JButton btnSettings, JButton btnStart, JLabel labelName, JButton btnLogin, JButton btnGetInfo){
         this.btnLogout=btnLogout;
         this.btnSettings=btnSettings;
         this.btnStart=btnStart;
         this.labelName= labelName;
         this.btnLogin= btnLogin;
+        this.btnGetInfo= btnGetInfo;
     }
     
     private void updateGUI(){
@@ -94,6 +96,7 @@ public class LoginWindow {
                 this.name= data.getString("name");
                 settings.SaveSetting("string", "usrName", name);
                 btnLogin.setEnabled(false);
+                btnGetInfo.setEnabled(true);
                 updateGUI();
             }
             else{
@@ -111,7 +114,7 @@ public class LoginWindow {
     }
     
     public void initAndShowGUI() {
-        JFrame frame = new JFrame("Swing and JavaFX");
+        JFrame frame = new JFrame("Login");
         final JFXPanel fxPanel = new JFXPanel();
         frame.add(fxPanel);
         frame.setSize(800 , 610);

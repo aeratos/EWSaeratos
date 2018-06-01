@@ -520,7 +520,7 @@ public class ClientGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        LoginWindow lw= new LoginWindow(btnLogout, btnSettings, btnStart, labelName, btnLogin);
+        LoginWindow lw= new LoginWindow(btnLogout, btnSettings, btnStart, labelName, btnLogin, btnGetInfo);
         lw.initAndShowGUI();
     }//GEN-LAST:event_btnLoginActionPerformed
 
