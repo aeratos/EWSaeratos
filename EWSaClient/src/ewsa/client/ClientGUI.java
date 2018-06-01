@@ -61,7 +61,7 @@ public class ClientGUI extends javax.swing.JFrame {
             settings.SaveSetting("string", "usrLocName", "worldwide");
             settings.SaveSetting("int", "usrDist", "-1");
             settings.SaveSetting("int", "usrMagn", "-1");
-            settings.SaveSetting("int", "usrLimit", "-1");
+            settings.SaveSetting("int", "usrLimit", "1");
             settings.SaveSetting("String", "usrName", "");
             settings.SaveSetting("String", "lastEqCoo0", "");
             settings.SaveSetting("String", "lastEqCoo1", "");
